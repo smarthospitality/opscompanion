@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ops Companion — SmartHospitality.ai</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ffffff;--bg2:#f7f7f5;--bg3:#f0ede8;
+  --text:#1a1a1a;--text2:#666;--text3:#999;
+  --border:rgba(0,0,0,0.1);--border2:rgba(0,0,0,0.18);
+  --green:#0F6E56;--green-light:#E1F5EE;--green-mid:#1D9E75;
+  --radius:12px;--radius-sm:8px;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg2);color:var(--text);min-height:100vh}
+.hidden{display:none!important}
+button,input,select,textarea{font-family:inherit}
+
+/* AUTH */
+#authScreen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+.auth-card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);padding:40px 36px;width:100%;max-width:400px;box-shadow:0 2px 20px rgba(0,0,0,0.06)}
+.auth-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+.logo-icon{width:42px;height:42px;border-radius:10px;background:var(--green);display:flex;align-items:center;justify-content:center}
+.logo-icon i{color:#9FE1CB;font-size:20px}
+.logo-text .name{font-size:18px;font-weight:600;letter-spacing:-.01em}
+.logo-text .sub{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-top:1px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:500}
+.field input{width:100%;padding:10px 14px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:14px;background:var(--bg2);color:var(--text);outline:none;transition:border-color .15s}
+.field input:focus{border-color:var(--green-mid)}
+.btn-primary{width:100%;padding:11px;background:var(--green);color:#E1F5EE;border:none;border-radius:var(--radius-sm);font-size:14px;font-weight:500;cursor:pointer;transition:background .15s}
+.btn-primary:hover{background:#085041}
+.demo-hint{font-size:12px;color:var(--text3);margin-top:20px;text-align:center;line-height:1.7}
+.demo-hint strong{color:var(--text2)}
+.error-msg{font-size:12px;color:#A32D2D;margin-top:8px;text-align:center}
+
+/* SHELL */
+#appShell{display:none;flex-direction:column;height:100vh}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:11px 20px;background:var(--bg);border-bottom:0.5px solid var(--border);flex-shrink:0}
+.topbar-left{display:flex;align-items:center;gap:12px}
+.top-logo{width:32px;height:32px;border-radius:8px;background:var(--green);display:flex;align-items:center;justify-content:center}
+.top-logo i{color:#9FE1CB;font-size:16px}
+.top-name{font-size:14px;font-weight:600}
+.top-outlet{font-size:11px;color:var(--text3)}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.role-badge{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.role-badge.admin{background:#FAECE7;color:#712B13}
+.role-badge.manager{background:#FAEEDA;color:#633806}
+.role-badge.staff{background:#E1F5EE;color:#085041}
+.logout-btn{background:none;border:none;cursor:pointer;color:var(--text3);font-size:13px;padding:4px 8px;border-radius:6px}
+.logout-btn:hover{color:var(--text);background:var(--bg2)}
+
+/* NAV */
+.nav-tabs{display:flex;border-bottom:0.5px solid var(--border);background:var(--bg2);flex-shrink:0;overflow-x:auto}
+.nav-tab{padding:10px 18px;font-size:13px;color:var(--text2);border:none;background:none;border-bottom:2px solid transparent;white-space:nowrap;cursor:pointer;display:flex;align-items:center;gap:6px;transition:color .15s}
+.nav-tab i{font-size:15px}
+.nav-tab.active{color:var(--green);border-bottom-color:var(--green);font-weight:500}
+.nav-tab:hover{color:var(--text)}
+
+/* PANELS */
+.panel{flex:1;overflow-y:auto;padding:20px;display:none;flex-direction:column;gap:16px}
+.panel.active{display:flex}
+.panel::-webkit-scrollbar{width:4px}
+.panel::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+
+/* CARDS */
+.card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);padding:18px 20px}
+.card-title{font-size:14px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.card-title i{font-size:16px;color:var(--green)}
+
+/* CHAT */
+.chat-container{display:flex;flex-direction:column;flex:1;gap:12px}
+.lang-row{display:flex;align-items:center;gap:8px}
+.lang-row select{font-size:12px;padding:5px 10px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--bg);color:var(--text);outline:none}
+.lang-row i{font-size:16px;color:var(--text3)}
+.qp-row{display:flex;flex-wrap:wrap;gap:6px}
+.qp{font-size:12px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text2);cursor:pointer;transition:all .15s}
+.qp:hover{border-color:var(--green-mid);color:var(--green);background:var(--green-light)}
+.messages{display:flex;flex-direction:column;gap:12px;min-height:260px;max-height:360px;overflow-y:auto;padding:4px 0}
+.messages::-webkit-scrollbar{width:3px}
+.messages::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.msg{display:flex;gap:8px;align-items:flex-start;max-width:88%;animation:fadeUp .2s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.av{width:27px;height:27px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600}
+.av.ai{background:var(--green);color:#9FE1CB}
+.av.user{background:var(--bg3);color:var(--text2);border:0.5px solid var(--border)}
+.bubble{padding:9px 13px;border-radius:10px;font-size:13.5px;line-height:1.65}
+.bubble.ai{background:var(--bg2);border:0.5px solid var(--border);border-top-left-radius:3px}
+.bubble.user{background:var(--green);color:#E1F5EE;border-top-right-radius:3px}
+.bubble ul{margin:5px 0 0 16px;display:flex;flex-direction:column;gap:3px}
+.bubble p{margin-bottom:4px}
+.typing-dots{display:flex;gap:4px;align-items:center;padding:10px 13px}
+.typing-dots span{width:6px;height:6px;border-radius:50%;background:var(--green-mid);animation:tdot 1.2s ease-in-out infinite}
+.typing-dots span:nth-child(2){animation-delay:.2s}
+.typing-dots span:nth-child(3){animation-delay:.4s}
+@keyframes tdot{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1)}}
+.input-row{display:flex;gap:8px;margin-top:6px}
+.input-row textarea{flex:1;border:0.5px solid var(--border2);border-radius:10px;padding:10px 13px;font-size:13.5px;resize:none;background:var(--bg);color:var(--text);outline:none;min-height:42px;max-height:110px;line-height:1.5}
+.input-row textarea:focus{border-color:var(--green-mid)}
+.send-btn{width:42px;height:42px;border-radius:10px;border:none;background:var(--green);color:#9FE1CB;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.send-btn:hover{background:#085041}
+.send-btn i{font-size:18px}
+.send-btn:disabled{background:var(--border);color:var(--text3);cursor:not-allowed}
+
+/* UPLOADS */
+.upload-zone{border:1px dashed var(--border2);border-radius:var(--radius-sm);padding:22px;text-align:center;cursor:pointer;transition:all .15s;margin-bottom:12px}
+.upload-zone:hover{border-color:var(--green-mid);background:var(--green-light)}
+.upload-zone i{font-size:28px;color:var(--text3);display:block;margin-bottom:8px}
+.upload-zone p{font-size:13px;color:var(--text2)}
+.upload-zone input{display:none}
+.file-list{display:flex;flex-direction:column;gap:6px}
+.file-item{display:flex;align-items:center;gap:8px;padding:7px 11px;background:var(--bg2);border-radius:7px;border:0.5px solid var(--border);font-size:13px}
+.file-item i{color:var(--green);font-size:15px}
+.file-item span{flex:1;color:var(--text2)}
+.file-del{background:none;border:none;cursor:pointer;color:var(--text3);font-size:13px;padding:2px}
+.file-del:hover{color:#A32D2D}
+
+/* PHOTOS */
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.photo-card{border-radius:var(--radius-sm);overflow:hidden;border:0.5px solid var(--border);cursor:pointer;transition:.15s}
+.photo-card:hover{border-color:var(--green-mid);transform:translateY(-1px)}
+.photo-card img{width:100%;height:95px;object-fit:cover;display:block;background:var(--bg2)}
+.photo-label{font-size:11.5px;padding:6px 8px;color:var(--text2);background:var(--bg)}
+
+/* PHOTO MODAL */
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:999;padding:20px}
+.modal-box{background:var(--bg);border-radius:var(--radius);padding:22px;max-width:360px;width:100%;text-align:center}
+.modal-box img{width:100%;border-radius:var(--radius-sm);margin-bottom:12px}
+.modal-title{font-size:15px;font-weight:600;margin-bottom:5px}
+.modal-desc{font-size:12.5px;color:var(--text2);line-height:1.6}
+.modal-close{margin-top:14px;font-size:12.5px;padding:7px 18px;border-radius:7px;border:0.5px solid var(--border2);background:none;color:var(--text2);cursor:pointer}
+.modal-close:hover{background:var(--bg2)}
+
+/* QUIZ */
+.quiz-card{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:10px}
+.quiz-q-text{font-size:13.5px;font-weight:500;margin-bottom:10px}
+.quiz-opts{display:flex;flex-direction:column;gap:6px}
+.quiz-opt{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2);cursor:pointer;padding:2px 0}
+.quiz-opt.correct{color:var(--green);font-weight:500}
+.btn-sm{font-size:12.5px;padding:8px 16px;border-radius:7px;border:none;background:var(--green);color:#E1F5EE;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.btn-sm:hover{background:#085041}
+.btn-outline{font-size:12.5px;padding:8px 16px;border-radius:7px;border:0.5px solid var(--border2);background:none;color:var(--text2);cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.btn-outline:hover{border-color:var(--green-mid);color:var(--green)}
+
+/* USERS TABLE */
+.users-table{width:100%;font-size:13px;border-collapse:collapse}
+.users-table th{text-align:left;font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.04em;padding:7px 10px;border-bottom:0.5px solid var(--border)}
+.users-table td{padding:9px 10px;border-bottom:0.5px solid var(--border)}
+.users-table tr:last-child td{border-bottom:none}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px}
+.dot.active{background:var(--green-mid)}
+.dot.inactive{background:var(--border2)}
+.tbl-action{font-size:12px;color:#185FA5;background:none;border:none;cursor:pointer}
+.tbl-action:hover{text-decoration:underline}
+.new-user-form{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-top:16px;padding-top:16px;border-top:0.5px solid var(--border)}
+.new-user-form .field{margin-bottom:0;flex:1;min-width:120px}
+.new-user-form .field input,.new-user-form .field select{font-size:12.5px;padding:8px 10px}
+
+/* METRICS */
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+.metric{background:var(--bg2);border-radius:var(--radius-sm);padding:16px}
+.metric-label{font-size:11px;color:var(--text2);margin-bottom:5px}
+.metric-value{font-size:26px;font-weight:600}
+</style>
+</head>
+<body>
+
+<!-- AUTH SCREEN -->
+<div id="authScreen">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div class="logo-icon"><i class="ti ti-chef-hat"></i></div>
+      <div class="logo-text">
+        <div class="name">Ops Companion</div>
+        <div class="sub">SmartHospitality.ai</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Username</label>
+      <input type="text" id="loginUser" placeholder="Enter username" value="staff"/>
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="loginPass" placeholder="Enter password" value="staff123" onkeydown="if(event.key==='Enter')doLogin()"/>
+    </div>
+    <button class="btn-primary" onclick="doLogin()">Sign in</button>
+    <div id="loginError" class="error-msg hidden">Incorrect username or password.</div>
+    <div class="demo-hint">
+      Demo accounts:<br>
+      <strong>admin / admin123</strong> &nbsp;·&nbsp; <strong>manager / mgr123</strong> &nbsp;·&nbsp; <strong>staff / staff123</strong>
+    </div>
+  </div>
+</div>
+
+<!-- APP SHELL -->
+<div id="appShell">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="top-logo"><i class="ti ti-chef-hat"></i></div>
+      <div>
+        <div class="top-name">Ops Companion</div>
+        <div class="top-outlet" id="outletLabel">SmartHospitality.ai</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span class="role-badge" id="roleBadge">Staff</span>
+      <button class="logout-btn" onclick="doLogout()" title="Sign out"><i class="ti ti-logout"></i></button>
+    </div>
+  </div>
+  <div class="nav-tabs" id="navTabs"></div>
+  <div id="panels" style="flex:1;display:flex;flex-direction:column;overflow:hidden;position:relative"></div>
+
+  <!-- PHOTO MODAL -->
+  <div class="modal-overlay hidden" id="photoModal" onclick="if(event.target===this)closePhoto()">
+    <div class="modal-box">
+      <img id="photoModalImg" src="" alt="Dish presentation"/>
+      <div class="modal-title" id="photoModalTitle"></div>
+      <div class="modal-desc" id="photoModalDesc"></div>
+      <button class="modal-close" onclick="closePhoto()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const LANGS={en:'English',tr:'Türkçe',es:'Español',ar:'العربية',zh:'中文',ru:'Русский'};
+
+const USERS=[
+  {u:'admin',p:'admin123',role:'admin',name:'Gökhan H.',lang:'en'},
+  {u:'manager',p:'mgr123',role:'manager',name:'Layla M.',lang:'en'},
+  {u:'staff',p:'staff123',role:'staff',name:'Cem A.',lang:'en'},
+  {u:'staff2',p:'staff456',role:'staff',name:'Maria S.',lang:'es'},
+];
+
+const SYSTEM_PROMPT=`You are the AI operations assistant for a luxury restaurant on the SmartHospitality.ai platform.
+You help restaurant staff with questions about the menu, allergens, dish presentations, outlet policies, upsell recommendations, and service procedures.
+
+MENU KNOWLEDGE:
+- Truffle Risotto: arborio rice, truffle oil, parmesan, butter, onion, white wine, vegetable stock. ALLERGENS: dairy, gluten. Removable: onion. Non-removable: parmesan (integral to dish). Vegan option: NO.
+- Wagyu Beef Tenderloin: wagyu beef, Béarnaise sauce, roasted potatoes, seasonal vegetables. ALLERGENS: eggs, dairy. Removable: potatoes. Non-removable: Béarnaise (signature sauce). 
+- Grilled Salmon: salmon fillet, lemon butter, capers, dill, asparagus. ALLERGENS: fish, dairy. All garnishes removable.
+- Caesar Salad: romaine, parmesan, croutons, Caesar dressing (anchovy, egg yolk). ALLERGENS: fish, gluten, eggs, dairy. Croutons removable. Vegan option: NO.
+- Lemon Tart: lemon curd, meringue, butter pastry, raspberry coulis. ALLERGENS: eggs, dairy, gluten. No modifications possible.
+- Espresso Martini: vodka, espresso, coffee liqueur, simple syrup. No allergens. Suitable for vegans.
+
+UPSELL PAIRINGS:
+- Truffle Risotto → Barolo or white Burgundy wine. Offer truffle supplement (+extra shavings).
+- Wagyu Beef → Château Pichon Baron or a Negroni aperitif. Suggest truffle fries as a side.
+- Grilled Salmon → Chablis or Sauvignon Blanc. Pair with soup of the day as starter.
+- Caesar Salad → Offer grilled chicken addition. Suggest light Pinot Grigio.
+- Espresso Martini → Suggest as a dessert cocktail after the meal.
+
+OUTLET INFORMATION:
+- Open: Tuesday to Sunday, 12:00–23:00. Closed Mondays.
+- Brunch: Saturdays and Sundays, 12:00–15:00.
+- Last food order: 22:00. Last drinks order: 22:30.
+- Live entertainment: Fridays and Saturdays from 20:00 (jazz quartet).
+- Dress code: Smart casual. No shorts or flip-flops at dinner service.
+- Reservations: Required for dinner. Walk-ins welcome for lunch.
+- Location: Peninsula Istanbul, Beşiktaş.
+
+SERVICE SOPs:
+- Guest complaint: Listen fully, empathise, never argue or make excuses. Involve manager immediately if guest remains unhappy. Offer goodwill gesture (complimentary drink or dessert) with manager approval. Log all complaints in the incident book.
+- Allergen query: Always verify with kitchen before confirming to guest. Never guess. Check food bible first. If unsure, say "Let me confirm with the kitchen for you" — never say "I think it's fine."
+- Spillage on guest: Apologise sincerely, offer to assist with cleaning, replace the item at no charge, notify manager.
+- Overbooking: Apologise, offer bar seating or lounge while table is arranged, offer a complimentary welcome drink.
+
+Answer concisely and practically. You are helping staff who are actively serving guests. Keep responses short. If asked about a dish photo or presentation, describe it vividly. Always respond in the language specified.`;
+
+let currentUser=null;
+let chatHistory=[];
+let isLoading=false;
+let files={menu:[],sops:[],factsheet:[]};
+let staffList=[
+  {u:'staff',name:'Cem A.',role:'staff',status:'active',lang:'en'},
+  {u:'staff2',name:'Maria S.',role:'staff',status:'active',lang:'es'},
+  {u:'staff3',name:'Ahmed K.',role:'staff',status:'inactive',lang:'ar'},
+];
+const PHOTOS=[
+  {name:'Truffle Risotto',desc:'Plated in a shallow bowl. Generous truffle shavings on top, micro herbs, drizzle of truffle oil. Parmesan crisp on the side.',img:'https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&h=280&fit=crop'},
+  {name:'Wagyu Beef Tenderloin',desc:'Sliced at 45° angle. Sauce served separately in a small jug. Roasted vegetables fanned beside the meat. Micro cress garnish.',img:'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=280&fit=crop'},
+  {name:'Espresso Martini',desc:'Served chilled in a coupe glass. Three coffee beans centred on the foam. Clean rim, no ice. Coaster underneath.',img:'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=280&fit=crop'},
+  {name:'Lemon Tart',desc:'Tart shell filled with lemon curd. Torched Italian meringue on top. Raspberry coulis streak across the plate. Single edible flower.',img:'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=400&h=280&fit=crop'},
+];
+const QUIZZES=[
+  {id:1,title:'Allergen Awareness',questions:[
+    {q:'Which dish contains anchovy?',opts:['Truffle Risotto','Caesar Salad','Grilled Salmon','Lemon Tart'],correct:1},
+    {q:'Can we remove parmesan from the Truffle Risotto for a dairy-free guest?',opts:['Yes, easily','No — it is integral to the dish','Only with chef approval','Yes if requested in advance'],correct:1},
+    {q:'What allergens does the Lemon Tart contain?',opts:['Nuts and dairy','Gluten only','Eggs, dairy and gluten','Fish and eggs'],correct:2},
+  ],assigned:['staff','staff2']},
+];
+let quizResults={};
+
+function doLogin(){
+  const u=document.getElementById('loginUser').value.trim();
+  const p=document.getElementById('loginPass').value.trim();
+  const user=USERS.find(x=>x.u===u&&x.p===p);
+  document.getElementById('loginError').classList.toggle('hidden',!!user);
+  if(!user)return;
+  currentUser={...user};
+  document.getElementById('authScreen').style.display='none';
+  const shell=document.getElementById('appShell');
+  shell.style.display='flex';
+  shell.style.flexDirection='column';
+  document.getElementById('roleBadge').textContent=currentUser.role.charAt(0).toUpperCase()+currentUser.role.slice(1);
+  document.getElementById('roleBadge').className='role-badge '+currentUser.role;
+  document.getElementById('outletLabel').textContent='Gallada — Peninsula Istanbul';
+  buildApp();
+}
+function doLogout(){
+  currentUser=null;chatHistory=[];
+  document.getElementById('appShell').style.display='none';
+  document.getElementById('authScreen').style.display='flex';
+}
+
+function buildApp(){
+  const r=currentUser.role;
+  const tabs=r==='admin'
+    ?[{id:'users',icon:'ti-users',label:'Users'},{id:'metrics',icon:'ti-chart-bar',label:'Overview'}]
+    :r==='manager'
+    ?[{id:'chat',icon:'ti-message-circle',label:'AI Assistant'},{id:'knowledge',icon:'ti-database',label:'Knowledge'},{id:'photos',icon:'ti-photo',label:'Photos'},{id:'quizzes',icon:'ti-school',label:'Quizzes'},{id:'staff',icon:'ti-users',label:'Staff'}]
+    :[{id:'chat',icon:'ti-message-circle',label:'Ask AI'},{id:'photos',icon:'ti-photo',label:'Photos'},{id:'quizzes',icon:'ti-school',label:'My Quizzes'}];
+
+  const nav=document.getElementById('navTabs');
+  const panels=document.getElementById('panels');
+  nav.innerHTML='';panels.innerHTML='';
+
+  tabs.forEach((t,i)=>{
+    const btn=document.createElement('button');
+    btn.className='nav-tab'+(i===0?' active':'');
+    btn.dataset.tab=t.id;
+    btn.innerHTML=`<i class="ti ${t.icon}"></i>${t.label}`;
+    btn.onclick=()=>switchTab(t.id);
+    nav.appendChild(btn);
+    const p=document.createElement('div');
+    p.className='panel'+(i===0?' active':'');
+    p.id='p-'+t.id;
+    panels.appendChild(p);
+    renderPanel(t.id);
+  });
+
+  if(r==='staff'||r==='manager') initChatGreeting();
+}
+
+function switchTab(id){
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='p-'+id));
+}
+
+function renderPanel(id){
+  const el=document.getElementById('p-'+id);
+  if(!el)return;
+  const r=currentUser.role;
+  if(id==='chat') el.innerHTML=buildChat(r);
+  else if(id==='knowledge') el.innerHTML=buildKnowledge();
+  else if(id==='photos') el.innerHTML=buildPhotos(r);
+  else if(id==='quizzes') el.innerHTML=buildQuizzes(r);
+  else if(id==='staff'||id==='users') el.innerHTML=buildUsers(r);
+  else if(id==='metrics') el.innerHTML=buildMetrics();
+}
+
+function buildChat(r){
+  const isStaff=r==='staff';
+  const qps=isStaff
+    ?['What allergens are in the Caesar salad?','Can I remove the onion from the risotto?','What pairs well with the wagyu?','Are we open for brunch on Sunday?','Last order time tonight?','How is the Lemon Tart presented?']
+    :['What are the upsell opportunities tonight?','Guest complaint SOP — remind me','Which dishes are vegan-friendly?','Live entertainment schedule this week?'];
+  return`<div class="card chat-container">
+  <div class="lang-row">
+    <i class="ti ti-language"></i>
+    <select id="langSel" onchange="currentUser.lang=this.value">
+      ${Object.entries(LANGS).map(([k,v])=>`<option value="${k}"${k===currentUser.lang?' selected':''}>${v}</option>`).join('')}
+    </select>
+    <span style="font-size:12px;color:var(--text3)">AI responds in your language</span>
+  </div>
+  <div class="qp-row">${qps.map(q=>`<button class="qp" onclick="useQP(this)">${q}</button>`).join('')}</div>
+  <div class="messages" id="msgs"></div>
+  <div class="input-row">
+    <textarea id="chatIn" placeholder="Ask about menu, allergens, SOPs, hours…" rows="1"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}"
+      oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,110)+'px'"></textarea>
+    <button class="send-btn" id="sendBtn" onclick="sendChat()"><i class="ti ti-send-2"></i></button>
+  </div>
+</div>`;
+}
+
+function buildKnowledge(){
+  const cats=[
+    {k:'menu',icon:'ti-file-text',label:'Food bible',hint:'Ingredients, allergens, and modifiable items per dish'},
+    {k:'sops',icon:'ti-clipboard-list',label:'SOPs',hint:'Service standards and procedures'},
+    {k:'factsheet',icon:'ti-info-circle',label:'Outlet fact sheet',hint:'Hours, entertainment, dress code, reservations'},
+  ];
+  return cats.map(c=>`<div class="card">
+    <div class="card-title"><i class="ti ${c.icon}"></i>${c.label}</div>
+    <p style="font-size:12.5px;color:var(--text2);margin-bottom:12px">${c.hint}</p>
+    <label class="upload-zone" for="up-${c.k}">
+      <input type="file" id="up-${c.k}" multiple accept=".pdf,.txt,.docx" onchange="addFile('${c.k}',this)">
+      <i class="ti ti-upload"></i>
+      <p>Click to upload or drag & drop<br><span style="font-size:11px;color:var(--text3)">PDF, DOCX or TXT</span></p>
+    </label>
+    <div class="file-list" id="fl-${c.k}">
+      ${(files[c.k]||[]).map((f,i)=>`<div class="file-item"><i class="ti ti-file"></i><span>${f}</span><button class="file-del" onclick="removeFile('${c.k}',${i})"><i class="ti ti-trash"></i></button></div>`).join('')}
+    </div>
+  </div>`).join('');
+}
+
+function buildPhotos(r){
+  const canUp=r==='manager'||r==='admin';
+  return`<div class="card">
+    <div class="card-title"><i class="ti ti-photo"></i>Dish & drink presentations</div>
+    ${canUp?`<label class="upload-zone" for="up-photos" style="margin-bottom:14px">
+      <input type="file" id="up-photos" multiple accept="image/*" onchange="addPhoto(this)">
+      <i class="ti ti-camera-plus"></i><p>Upload presentation photos</p></label>`:''}
+    <div class="photo-grid">
+      ${PHOTOS.map((p,i)=>`<div class="photo-card" onclick="openPhoto(${i})">
+        <img src="${p.img}" alt="${p.name}" loading="lazy"/>
+        <div class="photo-label">${p.name}</div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function buildQuizzes(r){
+  if(r==='staff'){
+    const mine=QUIZZES.filter(q=>q.assigned.includes(currentUser.u));
+    if(!mine.length)return`<div class="card"><p style="font-size:13px;color:var(--text2)">No quizzes assigned yet.</p></div>`;
+    return mine.map(q=>{
+      const res=quizResults[currentUser.u]&&quizResults[currentUser.u][q.id];
+      return`<div class="card">
+        <div class="card-title"><i class="ti ti-school"></i>${q.title}</div>
+        ${res?`<p style="font-size:13px;color:var(--green);margin-bottom:12px">Completed: ${res.score}/${res.total} correct</p>`:''}
+        <div id="qz-${q.id}">
+          ${q.questions.map((qq,qi)=>`<div class="quiz-card">
+            <div class="quiz-q-text">Q${qi+1}. ${qq.q}</div>
+            <div class="quiz-opts">${qq.opts.map((o,oi)=>`<label class="quiz-opt"><input type="radio" name="q${q.id}-${qi}" value="${oi}" style="accent-color:var(--green)"> ${o}</label>`).join('')}</div>
+          </div>`).join('')}
+          <button class="btn-sm" onclick="submitQuiz(${q.id})"><i class="ti ti-send"></i> Submit</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  return`<div class="card">
+    <div class="card-title"><i class="ti ti-school"></i>Staff quizzes</div>
+    ${QUIZZES.map(q=>`<div style="border:0.5px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span style="font-size:13.5px;font-weight:600">${q.title}</span>
+        <span style="font-size:11.5px;color:var(--text2)">${q.questions.length} questions · ${q.assigned.length} staff assigned</span>
+      </div>
+      ${q.questions.map((qq,qi)=>`<div class="quiz-card"><div class="quiz-q-text">Q${qi+1}. ${qq.q}</div>
+        <div class="quiz-opts">${qq.opts.map((o,oi)=>`<div class="quiz-opt${oi===qq.correct?' correct':''}"><i class="ti ${oi===qq.correct?'ti-circle-check':'ti-circle'}" style="font-size:13px"></i> ${o}</div>`).join('')}</div>
+      </div>`).join('')}
+    </div>`).join('')}
+    <button class="btn-outline" onclick="alert('Quiz builder — full version coming soon.')"><i class="ti ti-plus"></i> Create new quiz</button>
+  </div>`;
+}
+
+function buildUsers(r){
+  const isAdmin=r==='admin';
+  return`<div class="card">
+    <div class="card-title"><i class="ti ti-users"></i>${isAdmin?'All users':'Staff accounts'}</div>
+    <table class="users-table">
+      <thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Language</th><th>Status</th>${!isAdmin?'<th>Action</th>':''}</tr></thead>
+      <tbody>
+        ${staffList.map((u,i)=>`<tr>
+          <td>${u.name}</td>
+          <td style="color:var(--text2)">${u.u}</td>
+          <td><span class="role-badge ${u.role}">${u.role}</span></td>
+          <td>${LANGS[u.lang]||u.lang}</td>
+          <td><span class="dot ${u.status}"></span>${u.status}</td>
+          ${!isAdmin?`<td><button class="tbl-action" onclick="toggleStatus(${i})">${u.status==='active'?'Deactivate':'Activate'}</button></td>`:''}
+        </tr>`).join('')}
+      </tbody>
+    </table>
+    ${r==='manager'?`<div class="new-user-form">
+      <div class="field"><label>Full name</label><input type="text" id="nName" placeholder="e.g. Sarah T."/></div>
+      <div class="field"><label>Username</label><input type="text" id="nUser" placeholder="e.g. sarah"/></div>
+      <div class="field"><label>Password</label><input type="password" id="nPass" placeholder="set password"/></div>
+      <div class="field"><label>Language</label><select id="nLang">${Object.entries(LANGS).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select></div>
+      <button class="btn-sm" onclick="addUser()" style="margin-bottom:0"><i class="ti ti-user-plus"></i> Add</button>
+    </div>`:''}
+  </div>`;
+}
+
+function buildMetrics(){
+  return`<div class="metrics-grid">
+    <div class="metric"><div class="metric-label">Active staff</div><div class="metric-value">3</div></div>
+    <div class="metric"><div class="metric-label">Quizzes live</div><div class="metric-value">1</div></div>
+    <div class="metric"><div class="metric-label">Documents uploaded</div><div class="metric-value">0</div></div>
+    <div class="metric"><div class="metric-label">AI queries today</div><div class="metric-value">—</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title"><i class="ti ti-info-circle"></i>Platform overview</div>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7">Full analytics — daily query counts, staff quiz completion rates, and most-asked questions — are available in the production version. Use the Users tab to manage restaurant access.</p>
+  </div>`;
+}
+
+function initChatGreeting(){
+  setTimeout(()=>{
+    const msgs=document.getElementById('msgs');
+    if(!msgs||chatHistory.length>0)return;
+    const g={en:'Hello! Ask me anything about the menu, allergens, presentations, SOPs, or outlet information.',tr:'Merhaba! Menü, alerjenler, sunum, SOP veya restoran bilgileri hakkında her şeyi sorabilirsiniz.',es:'¡Hola! Pregúntame sobre el menú, alérgenos, presentaciones o información del restaurante.',ar:'مرحباً! اسألني عن أي شيء يخص القائمة أو مسببات الحساسية أو إجراءات الخدمة.',zh:'你好！请随时询问菜单、过敏原、摆盘方式或餐厅信息。',ru:'Привет! Спрашивайте меня о меню, аллергенах, подаче блюд или информации о ресторане.'};
+    addAIBubble(g[currentUser.lang]||g.en);
+  },80);
+}
+
+function useQP(btn){
+  const inp=document.getElementById('chatIn');
+  if(inp){inp.value=btn.textContent;inp.dispatchEvent(new Event('input'));}
+  sendChat();
+}
+
+function addAIBubble(html){
+  const msgs=document.getElementById('msgs');
+  if(!msgs)return;
+  const w=document.createElement('div');w.className='msg';
+  const av=document.createElement('div');av.className='av ai';av.textContent='AI';
+  const b=document.createElement('div');b.className='bubble ai';b.innerHTML=html;
+  w.appendChild(av);w.appendChild(b);msgs.appendChild(w);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function addUserBubble(text){
+  const msgs=document.getElementById('msgs');
+  if(!msgs)return;
+  const w=document.createElement('div');w.className='msg user';
+  const av=document.createElement('div');av.className='av user';av.textContent='Me';
+  const b=document.createElement('div');b.className='bubble user';b.textContent=text;
+  w.appendChild(av);w.appendChild(b);msgs.appendChild(w);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function showTyping(){
+  const msgs=document.getElementById('msgs');
+  if(!msgs)return;
+  const w=document.createElement('div');w.className='msg';w.id='typing';
+  const av=document.createElement('div');av.className='av ai';av.textContent='AI';
+  const b=document.createElement('div');b.className='bubble ai';
+  b.innerHTML='<div class="typing-dots"><span></span><span></span><span></span></div>';
+  w.appendChild(av);w.appendChild(b);msgs.appendChild(w);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+function hideTyping(){const el=document.getElementById('typing');if(el)el.remove();}
+
+function fmt(text){
+  let h=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>');
+  const lines=h.split('\n');let out='';let ul=false;
+  for(const l of lines){
+    const t=l.trim();
+    if(t.startsWith('- ')||t.startsWith('• ')){if(!ul){out+='<ul>';ul=true;}out+=`<li>${t.slice(2)}</li>`;}
+    else if(/^\d+\.\s/.test(t)){if(!ul){out+='<ul>';ul=true;}out+=`<li>${t.replace(/^\d+\.\s/,'')}</li>`;}
+    else{if(ul){out+='</ul>';ul=false;}if(t)out+=`<p>${t}</p>`;}
+  }
+  if(ul)out+='</ul>';
+  return out;
+}
+
+async function sendChat(){
+  if(isLoading)return;
+  const inp=document.getElementById('chatIn');
+  const text=inp?.value.trim();
+  if(!text)return;
+  isLoading=true;
+  document.getElementById('sendBtn').disabled=true;
+  inp.value='';inp.style.height='auto';
+  addUserBubble(text);
+  chatHistory.push({role:'user',content:text});
+  showTyping();
+  const lang=LANGS[currentUser.lang]||'English';
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system:SYSTEM_PROMPT+`\n\nIMPORTANT: Always respond in ${lang}. Be concise — staff are on the floor serving guests.`,
+        messages:chatHistory
+      })
+    });
+    const data=await res.json();
+    hideTyping();
+    if(data.content&&data.content[0]){
+      const reply=data.content[0].text;
+      chatHistory.push({role:'assistant',content:reply});
+      addAIBubble(fmt(reply));
+    } else {
+      addAIBubble('Something went wrong. Please try again.');
+    }
+  }catch(e){hideTyping();addAIBubble('Connection error. Please try again.');}
+  isLoading=false;
+  document.getElementById('sendBtn').disabled=false;
+  document.getElementById('chatIn')?.focus();
+}
+
+function addFile(key,inp){
+  Array.from(inp.files).forEach(f=>{if(!files[key])files[key]=[];files[key].push(f.name);});
+  refreshFiles(key);
+}
+function refreshFiles(key){
+  const el=document.getElementById('fl-'+key);
+  if(!el)return;
+  el.innerHTML=files[key].map((f,i)=>`<div class="file-item"><i class="ti ti-file"></i><span>${f}</span><button class="file-del" onclick="removeFile('${key}',${i})"><i class="ti ti-trash"></i></button></div>`).join('');
+}
+function removeFile(key,idx){files[key].splice(idx,1);refreshFiles(key);}
+
+function addPhoto(inp){
+  Array.from(inp.files).forEach(f=>{
+    const url=URL.createObjectURL(f);
+    PHOTOS.push({name:f.name.replace(/\.[^.]+$/,''),desc:'Uploaded presentation photo.',img:url});
+  });
+  renderPanel('photos');
+}
+function openPhoto(i){
+  const p=PHOTOS[i];
+  document.getElementById('photoModalImg').src=p.img;
+  document.getElementById('photoModalTitle').textContent=p.name;
+  document.getElementById('photoModalDesc').textContent=p.desc;
+  document.getElementById('photoModal').classList.remove('hidden');
+}
+function closePhoto(){document.getElementById('photoModal').classList.add('hidden');}
+
+function submitQuiz(qid){
+  const quiz=QUIZZES.find(q=>q.id===qid);
+  if(!quiz)return;
+  let score=0;
+  quiz.questions.forEach((qq,qi)=>{
+    const sel=document.querySelector(`input[name="q${qid}-${qi}"]:checked`);
+    if(sel&&parseInt(sel.value)===qq.correct)score++;
+  });
+  if(!quizResults[currentUser.u])quizResults[currentUser.u]={};
+  quizResults[currentUser.u][qid]={score,total:quiz.questions.length};
+  alert(`Quiz submitted! You scored ${score} out of ${quiz.questions.length}.`);
+  renderPanel('quizzes');
+}
+
+function toggleStatus(idx){
+  staffList[idx].status=staffList[idx].status==='active'?'inactive':'active';
+  renderPanel('staff');
+}
+
+function addUser(){
+  const n=document.getElementById('nName').value.trim();
+  const u=document.getElementById('nUser').value.trim();
+  const p=document.getElementById('nPass').value.trim();
+  const l=document.getElementById('nLang').value;
+  if(!n||!u||!p){alert('Please fill in all fields.');return;}
+  staffList.push({u,name:n,role:'staff',status:'active',lang:l});
+  USERS.push({u,p,role:'staff',name:n,lang:l});
+  renderPanel('staff');
+}
+</script>
+</body>
+</html>
