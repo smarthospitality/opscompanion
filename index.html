@@ -259,8 +259,8 @@ button,input,select,textarea{font-family:inherit}
         <div class="dhint" style="text-align:left;margin-top:24px">
       <div style="display:flex;flex-direction:column;gap:10px">
         <div style="padding:10px 12px;background:#F4F2EE;border-radius:8px;border:0.5px solid #E8E8E6">
-          <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Director of F&B</div>
-          <div style="font-size:12px;color:#555;margin-bottom:5px">Multi-outlet overview & manager performance</div>
+          <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Department Head</div>
+          <div style="font-size:12px;color:#555;margin-bottom:5px">Multi-outlet overview & team performance</div>
           <div style="font-size:12px;font-weight:500;color:#1A1A1A;font-family:monospace">director / dir123</div>
         </div>
         <div style="padding:10px 12px;background:#F4F2EE;border-radius:8px;border:0.5px solid #E8E8E6">
@@ -329,9 +329,9 @@ const USERS=[
 ];
 
 const OUTLETS=[
-  {id:1,name:'Gallada',type:'Fine Dining',hotel:'Peninsula Istanbul',staff:8,avgQuiz:72,queries:47,mgr:'Layla M.',mgrU:'manager'},
-  {id:2,name:'Topside',type:'Rooftop Bar',hotel:'Peninsula Istanbul',staff:5,avgQuiz:65,queries:31,mgr:'James R.',mgrU:'manager2'},
-  {id:3,name:'Lobby Lounge',type:'All-day Dining',hotel:'Peninsula Istanbul',staff:12,avgQuiz:80,queries:58,mgr:'Layla M.',mgrU:'manager'},
+  {id:1,name:'Fine Dining',type:'Fine Dining',hotel:'City Center Hotel',staff:8,avgQuiz:72,queries:47,mgr:'Layla M.',mgrU:'manager'},
+  {id:2,name:'Rooftop Bar',type:'Rooftop Bar',hotel:'City Center Hotel',staff:5,avgQuiz:65,queries:31,mgr:'James R.',mgrU:'manager2'},
+  {id:3,name:'All-Day Dining',type:'All-day Dining',hotel:'City Center Hotel',staff:12,avgQuiz:80,queries:58,mgr:'Layla M.',mgrU:'manager'},
 ];
 
 let INSIGHTS=[
@@ -343,8 +343,8 @@ let INSIGHTS=[
 ];
 
 let MANAGERS=[
-  {u:'manager',name:'Layla M.',outlet:'Gallada & Lobby Lounge',score:8.2,topics:3,quizAvg:76,notes:'Strong on allergen training. Upselling coverage needs follow-up.',covered:3,total:5},
-  {u:'manager2',name:'James R.',outlet:'Topside',score:6.5,topics:1,quizAvg:65,notes:'Good engagement with staff but topic coverage inconsistent.',covered:1,total:5},
+  {u:'manager',name:'Layla M.',outlet:'Fine Dining & All-Day Dining',score:8.2,topics:3,quizAvg:76,notes:'Strong on allergen training. Upselling coverage needs follow-up.',covered:3,total:5},
+  {u:'manager2',name:'James R.',outlet:'Rooftop Bar',score:6.5,topics:1,quizAvg:65,notes:'Good engagement with staff but topic coverage inconsistent.',covered:1,total:5},
 ];
 
 const QUIZZES=[{id:1,title:'Allergen awareness',questions:[
@@ -396,7 +396,7 @@ function login(){
   const a=document.getElementById('app');a.style.display='flex';a.style.flexDirection='column';
   document.getElementById('rp').textContent=cu.role.charAt(0).toUpperCase()+cu.role.slice(1);
   document.getElementById('rp').className='rpill '+cu.role;
-  document.getElementById('tbSub').textContent={director:'Director of F&B',hr:'Human Resources',manager:'Restaurant Manager',staff:'Line Staff',admin:'Platform Admin'}[cu.role]||'';
+  document.getElementById('tbSub').textContent={director:'Department Head',hr:'Human Resources',manager:'Restaurant Manager',staff:'Line Staff',admin:'Platform Admin'}[cu.role]||'';
   buildApp();
 }
 function logout(){cu=null;chat=[];document.getElementById('app').style.display='none';document.getElementById('auth').style.display='flex';}
@@ -404,7 +404,7 @@ function logout(){cu=null;chat=[];document.getElementById('app').style.display='
 function buildApp(){
   const r=cu.role;
   const tabs=
-    r==='director'?[{id:'outlets',icon:'ti-building',label:'Outlets'},{id:'managers',icon:'ti-users',label:'Manager scores'}]
+    r==='director'?[{id:'outlets',icon:'ti-building',label:'Outlets'},{id:'managers',icon:'ti-users',label:'Team scores'}]
     :r==='hr'?[{id:'hr',icon:'ti-award',label:'Performance'},{id:'hrmanagers',icon:'ti-users',label:'All managers'}]
     :r==='manager'?[{id:'chat',icon:'ti-message-circle',label:'Assistant'},{id:'insights',icon:'ti-trending-up',label:'Insights'},{id:'onboard',icon:'ti-route',label:'Onboarding'},{id:'appraisal',icon:'ti-award',label:'Appraisals'},{id:'knowledge',icon:'ti-database',label:'Knowledge'},{id:'photos',icon:'ti-photo',label:'Photos'},{id:'quizzes',icon:'ti-school',label:'Quizzes'},{id:'staff',icon:'ti-users',label:'Staff'}]
     :r==='admin'?[{id:'outlets',icon:'ti-building',label:'Outlets'},{id:'managers',icon:'ti-users',label:'Users'}]
@@ -445,7 +445,7 @@ function rp2(id){
 
 function bOutlets(){
   return`<div class="card">
-  <div class="ctitle"><i class="ti ti-building" aria-hidden="true"></i>Your outlets — Peninsula Istanbul</div>
+  <div class="ctitle"><i class="ti ti-building" aria-hidden="true"></i>Your outlets — City Center Hotel</div>
   <div class="outlet-grid">
     ${OUTLETS.map(o=>`<div class="outlet-card" onclick="openOutlet(${o.id})">
       <div class="oc-name">${o.name}</div>
@@ -515,7 +515,7 @@ function bDirectorManagers(){
         <div class="score-ring ${m.score>=8?'high':m.score>=6?'mid':'low'}">${m.score}</div>
       </div>
       <div class="rating-wrap">
-        <span class="rating-label">Director rating:</span>
+        <span class="rating-label">Dept. Head rating:</span>
         <input type="range" min="1" max="10" value="${Math.round(m.score)}" step="1" style="flex:1;accent-color:var(--accent)" oninput="document.getElementById('rv-${m.u}').textContent=this.value"/>
         <span class="rating-val" id="rv-${m.u}">${Math.round(m.score)}</span>
         <button class="bsm" style="font-size:11px;padding:5px 12px" onclick="saveRating('${m.u}',this)"><i class="ti ti-check" style="font-size:12px"></i> Save</button>
