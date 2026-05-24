@@ -14,19 +14,18 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
---bg:#F4F2EE;--bg2:#ECEAE4;--bg3:#E4E1DA;
---surface:#FFFFFF;
+--bg:#F4F2EE;--bg2:#ECEAE4;--bg3:#E4E1DA;--surface:#FFF;
 --text:#2C2C2A;--text2:#5A5754;--text3:#8C8880;
---accent:#4A6741;--accent2:#3A5332;--at:#FFFFFF;
---gold:#C9A84C;--border:rgba(44,44,42,0.12);--border2:rgba(44,44,42,0.22);
+--accent:#4A6741;--accent2:#3A5332;
+--gold:#C9A84C;--navy:#1A1F2E;
+--border:rgba(44,44,42,0.12);--border2:rgba(44,44,42,0.22);
 --r:12px;--rs:8px;
 --ibb:#E4E1DA;--ibc:#2C2C2A;--ibbo:rgba(44,44,42,0.25);
 }
 .night{
---bg:#1C1C1A;--bg2:#252521;--bg3:#2E2E2A;
---surface:#252521;
+--bg:#1C1C1A;--bg2:#252521;--bg3:#2E2E2A;--surface:#252521;
 --text:#F5F0E8;--text2:#A09C8C;--text3:#6B6760;
---accent:#C9A84C;--accent2:#B8943C;--at:#1C1C1A;
+--accent:#C9A84C;--accent2:#B8943C;
 --border:rgba(245,240,232,0.08);--border2:rgba(245,240,232,0.15);
 --ibb:#2E2E2A;--ibc:#F5F0E8;--ibbo:rgba(245,240,232,0.18);
 }
@@ -35,44 +34,45 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 button,input,select,textarea{font-family:inherit}
 
 #auth{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;background:var(--bg)}
-.acard{background:var(--surface);border:0.5px solid var(--border2);border-radius:var(--r);padding:44px 40px;width:100%;max-width:380px}
-.abrand{display:flex;align-items:center;gap:12px;margin-bottom:36px}
-.aicon{width:44px;height:44px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center}
-.aicon i{color:#fff;font-size:20px}
+.acard{background:var(--surface);border:0.5px solid var(--border2);border-radius:var(--r);padding:44px 40px;width:100%;max-width:400px}
+.abrand{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+.aicon{width:44px;height:44px;border-radius:10px;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.aicon span{color:var(--gold);font-size:16px;font-weight:700;font-family:Georgia,serif;letter-spacing:-1px}
 .aname{font-size:18px;font-weight:500}
 .asub{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
-.fl{margin-bottom:20px}
-.fl label{display:block;font-size:11px;color:var(--text2);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em;font-weight:500}
-.fl input{width:100%;padding:11px 14px;border:0.5px solid var(--border2);border-radius:var(--rs);font-size:14px;background:var(--bg2);color:var(--text);outline:none}
-.fl input:focus{border-color:var(--accent)}
+.fl{margin-bottom:18px}
+.fl label{display:block;font-size:11px;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;font-weight:500}
+.fl input,.fl select{width:100%;padding:10px 14px;border:0.5px solid var(--border2);border-radius:var(--rs);font-size:13.5px;background:var(--bg2);color:var(--text);outline:none}
+.fl input:focus,.fl select:focus{border-color:var(--accent)}
 .fl input::placeholder{color:var(--text3)}
-.bmain{width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:var(--rs);font-size:13.5px;font-weight:500;cursor:pointer}
-.bmain:hover{background:var(--accent2)}
-.night .bmain{background:var(--gold);color:#1C1C1A}
-.dhint{font-size:11.5px;color:var(--text3);margin-top:20px;text-align:center;line-height:1.8}
+.bmain{width:100%;padding:11px;background:var(--navy);color:#fff;border:none;border-radius:var(--rs);font-size:13.5px;font-weight:500;cursor:pointer}
+.bmain:hover{background:#0F1420}
+.dhint{font-size:11px;color:var(--text3);margin-top:18px;text-align:center;line-height:1.9}
 .dhint strong{color:var(--text2)}
 .err{font-size:12px;color:#A32D2D;margin-top:8px;text-align:center}
 
 #app{display:none;flex-direction:column;height:100vh;background:var(--bg)}
-.tb{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:var(--surface);border-bottom:0.5px solid var(--border);flex-shrink:0}
+.tb{display:flex;align-items:center;justify-content:space-between;padding:11px 20px;background:var(--surface);border-bottom:0.5px solid var(--border);flex-shrink:0}
 .tbl{display:flex;align-items:center;gap:12px}
-.ticon{width:32px;height:32px;border-radius:7px;background:var(--accent);display:flex;align-items:center;justify-content:center}
-.ticon i{color:#fff;font-size:15px}
+.ticon{width:30px;height:30px;border-radius:7px;background:var(--navy);display:flex;align-items:center;justify-content:center}
+.ticon span{color:var(--gold);font-size:11px;font-weight:700;font-family:Georgia,serif}
 .tname{font-size:14px;font-weight:500}
-.tout{font-size:10.5px;color:var(--text3);margin-top:1px}
+.tout{font-size:10px;color:var(--text3);margin-top:1px}
 .tbr{display:flex;align-items:center;gap:8px}
 .rpill{font-size:10px;padding:3px 10px;border-radius:20px;font-weight:500;text-transform:uppercase;letter-spacing:.04em}
+.rpill.director{background:#E6F1FB;color:#0C447C}
+.rpill.hr{background:#EEEDFE;color:#3C3489}
 .rpill.admin{background:#FAECE7;color:#712B13}
 .rpill.manager{background:#FAEEDA;color:#633806}
 .rpill.staff{background:#E4EBE2;color:#3A5332;border:0.5px solid #4A6741}
 .night .rpill.staff{background:#2E2E2A;color:var(--gold);border:0.5px solid var(--gold)}
-.ibtn{width:36px;height:36px;border-radius:var(--rs);border:0.5px solid var(--ibbo);background:var(--ibb);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ibc)}
+.ibtn{width:34px;height:34px;border-radius:var(--rs);border:0.5px solid var(--ibbo);background:var(--ibb);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ibc)}
 .ibtn:hover{background:var(--bg3)}
-.ibtn i{font-size:16px}
+.ibtn i{font-size:15px}
 
 .nav{display:flex;border-bottom:0.5px solid var(--border);background:var(--surface);flex-shrink:0;overflow-x:auto}
 .nav::-webkit-scrollbar{display:none}
-.nb{padding:11px 16px;font-size:12px;color:var(--text2);border:none;background:none;border-bottom:2px solid transparent;white-space:nowrap;cursor:pointer;display:flex;align-items:center;gap:5px}
+.nb{padding:10px 16px;font-size:12px;color:var(--text2);border:none;background:none;border-bottom:2px solid transparent;white-space:nowrap;cursor:pointer;display:flex;align-items:center;gap:5px}
 .nb i{font-size:14px}
 .nb.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500}
 .night .nb.active{color:var(--gold);border-bottom-color:var(--gold)}
@@ -89,12 +89,80 @@ button,input,select,textarea{font-family:inherit}
 .ctitle i{font-size:16px;color:var(--accent)}
 .night .ctitle i{color:var(--gold)}
 
-.qpr{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
-.qp{font-size:11.5px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg2);color:var(--text2);cursor:pointer}
-.qp:hover{border-color:var(--accent);color:var(--accent)}
-.night .qp:hover{border-color:var(--gold);color:var(--gold)}
+.outlet-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.outlet-card{background:var(--bg2);border:0.5px solid var(--border2);border-radius:var(--rs);padding:14px;cursor:pointer;transition:.15s}
+.outlet-card:hover{border-color:var(--accent);background:var(--surface)}
+.night .outlet-card:hover{border-color:var(--gold)}
+.oc-name{font-size:13.5px;font-weight:500;margin-bottom:4px}
+.oc-sub{font-size:11.5px;color:var(--text3);margin-bottom:10px}
+.oc-metrics{display:flex;gap:10px;flex-wrap:wrap}
+.oc-metric{font-size:11px;color:var(--text2)}
+.oc-metric strong{font-size:16px;font-weight:500;color:var(--text);display:block}
 
-.msgs{display:flex;flex-direction:column;gap:12px;min-height:200px;max-height:280px;overflow-y:auto;margin-bottom:12px}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:14px}
+.mc{background:var(--bg2);border-radius:var(--rs);padding:12px;border:0.5px solid var(--border)}
+.ml{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.mv{font-size:22px;font-weight:500}
+
+.insight-row{display:flex;flex-direction:column;gap:8px}
+.insight-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg2);border-radius:var(--rs);border:0.5px solid var(--border);flex-wrap:wrap}
+.insight-label{font-size:12.5px;min-width:140px}
+.insight-bar-wrap{flex:1;min-width:60px;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.insight-bar{height:100%;background:var(--accent);border-radius:3px}
+.night .insight-bar{background:var(--gold)}
+.insight-count{font-size:11.5px;color:var(--text3);min-width:24px;text-align:right}
+.insight-status{font-size:10px;padding:2px 8px;border-radius:10px;white-space:nowrap;font-weight:500}
+.status-effective{background:#EAF3DE;color:#3B6D11}
+.status-review{background:#FAEEDA;color:#633806}
+.status-retrain{background:#FCEBEB;color:#791F1F}
+.done-btn{font-size:11px;padding:4px 10px;border-radius:6px;border:0.5px solid var(--border2);background:var(--surface);color:var(--text2);cursor:pointer;white-space:nowrap}
+.done-btn:hover{border-color:var(--accent);color:var(--accent)}
+.night .done-btn:hover{border-color:var(--gold);color:var(--gold)}
+
+.manager-card{display:flex;align-items:flex-start;gap:12px;padding:14px;background:var(--bg2);border-radius:var(--rs);border:0.5px solid var(--border);margin-bottom:10px;flex-wrap:wrap}
+.mgr-avatar{width:38px;height:38px;border-radius:50%;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;font-family:Georgia,serif}
+.mgr-info{flex:1;min-width:140px}
+.mgr-name{font-size:13px;font-weight:500}
+.mgr-sub{font-size:11.5px;color:var(--text3);margin-top:2px}
+.mgr-note{font-size:11.5px;color:var(--text2);margin-top:6px;font-style:italic;line-height:1.5}
+.score-ring{width:42px;height:42px;border-radius:50%;border:2.5px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--accent);flex-shrink:0}
+.night .score-ring{border-color:var(--gold);color:var(--gold)}
+.score-ring.high{border-color:#3B6D11;color:#3B6D11}
+.score-ring.mid{border-color:#BA7517;color:#BA7517}
+.score-ring.low{border-color:#A32D2D;color:#A32D2D}
+
+.rating-wrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border);width:100%}
+.rating-label{font-size:12px;color:var(--text2)}
+.rating-val{font-size:14px;font-weight:500;min-width:28px;text-align:center;color:var(--accent)}
+.night .rating-val{color:var(--gold)}
+
+.alert-box{display:flex;gap:10px;align-items:flex-start;padding:11px 14px;background:#FAEEDA;border-radius:var(--rs);border:0.5px solid #EF9F27;margin-bottom:14px}
+.night .alert-box{background:#2E2A20;border-color:#633806}
+.alert-box i{font-size:15px;color:#854F0B;flex-shrink:0;margin-top:1px}
+.night .alert-box i{color:#FAC775}
+.alert-text{font-size:12px;color:#633806;line-height:1.6}
+.night .alert-text{color:#FAC775}
+
+.bsm{font-size:12px;padding:7px 14px;border-radius:7px;border:none;background:var(--accent);color:#fff;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.bsm:hover{background:var(--accent2)}
+.night .bsm{background:var(--gold);color:#1C1C1A}
+.bout{font-size:12px;padding:7px 14px;border-radius:7px;border:1px solid var(--border2);background:var(--bg2);color:var(--text2);cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.bout:hover{border-color:var(--accent);color:var(--accent)}
+.night .bout:hover{border-color:var(--gold);color:var(--gold)}
+
+.back-btn{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text2);background:none;border:none;cursor:pointer;margin-bottom:16px;padding:0}
+.back-btn:hover{color:var(--text)}
+.back-btn i{font-size:15px}
+
+.tblx{width:100%;font-size:12.5px;border-collapse:collapse}
+.tblx th{text-align:left;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;padding:7px 10px;border-bottom:0.5px solid var(--border)}
+.tblx td{padding:9px 10px;border-bottom:0.5px solid var(--border)}
+.tblx tr:last-child td{border-bottom:none}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px}
+.dot.active{background:#4A6741}
+.night .dot.active{background:var(--gold)}
+
+.msgs{display:flex;flex-direction:column;gap:12px;min-height:200px;max-height:300px;overflow-y:auto;margin-bottom:12px}
 .msgs::-webkit-scrollbar{width:3px}
 .msgs::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
 .msg{display:flex;gap:8px;align-items:flex-start;max-width:90%;animation:fu .2s ease}
@@ -117,45 +185,27 @@ button,input,select,textarea{font-family:inherit}
 .tdots span:nth-child(3){animation-delay:.4s}
 @keyframes td{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1)}}
 .inrow{display:flex;gap:8px}
-.inrow textarea{flex:1;border:0.5px solid var(--border2);border-radius:10px;padding:10px 13px;font-size:13px;resize:none;background:var(--bg2);color:var(--text);outline:none;min-height:42px;max-height:100px;line-height:1.5}
+.inrow textarea{flex:1;border:0.5px solid var(--border2);border-radius:10px;padding:9px 12px;font-size:13px;resize:none;background:var(--bg2);color:var(--text);outline:none;min-height:40px;max-height:90px;line-height:1.5}
 .inrow textarea:focus{border-color:var(--accent)}
 .inrow textarea::placeholder{color:var(--text3)}
-.sbtn{width:42px;height:42px;border-radius:10px;border:none;background:var(--accent);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sbtn{width:40px;height:40px;border-radius:10px;border:none;background:var(--accent);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .sbtn:hover{background:var(--accent2)}
 .sbtn:disabled{background:var(--bg3);color:var(--text3);cursor:not-allowed}
-.sbtn i{font-size:18px}
+.sbtn i{font-size:17px}
 .night .sbtn{background:var(--gold);color:#1C1C1A}
+.qpr{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.qp{font-size:11.5px;padding:4px 11px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg2);color:var(--text2);cursor:pointer}
+.qp:hover{border-color:var(--accent);color:var(--accent)}
+.night .qp:hover{border-color:var(--gold);color:var(--gold)}
 
-.bsm{font-size:12px;padding:8px 16px;border-radius:7px;border:none;background:var(--accent);color:#fff;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
-.bsm:hover{background:var(--accent2)}
-.night .bsm{background:var(--gold);color:#1C1C1A}
-.bout{font-size:12px;padding:8px 16px;border-radius:7px;border:1px solid var(--border2);background:var(--bg2);color:var(--text2);cursor:pointer;display:inline-flex;align-items:center;gap:5px}
-.bout:hover{border-color:var(--accent);color:var(--accent)}
-.night .bout:hover{border-color:var(--gold);color:var(--gold)}
-.bshare{font-size:12px;padding:8px 16px;border-radius:7px;border:1px solid var(--border2);background:var(--bg2);color:var(--text2);cursor:pointer;display:inline-flex;align-items:center;gap:5px}
-.bshare:hover{border-color:#185FA5;color:#185FA5}
-
-.uz{border:1px dashed var(--border2);border-radius:var(--rs);padding:18px;text-align:center;cursor:pointer;margin-bottom:12px}
-.uz:hover{border-color:var(--accent);background:var(--bg2)}
-.uz input{display:none}
-.uz i{font-size:24px;color:var(--text3);display:block;margin-bottom:6px}
-.uz p{font-size:12.5px;color:var(--text2)}
-
-.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
-.pc{border-radius:var(--rs);overflow:hidden;border:0.5px solid var(--border);cursor:pointer}
-.pc:hover{border-color:var(--accent)}
-.pc img{width:100%;height:85px;object-fit:cover;display:block;background:var(--bg2)}
-.plb{font-size:11px;padding:5px 7px;color:var(--text2);background:var(--surface)}
-
-.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:14px}
-.mc{background:var(--bg2);border-radius:var(--rs);padding:14px;border:0.5px solid var(--border)}
-.ml{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
-.mv{font-size:24px;font-weight:500}
-
-.alist{display:flex;flex-direction:column;gap:8px}
-.aitem{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--bg2);border-radius:var(--rs);border:0.5px solid var(--border);flex-wrap:wrap;gap:8px}
-.ainame{font-size:13px;font-weight:500}
-.aisub{font-size:11.5px;color:var(--text3);margin-top:2px}
+.cal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:999;padding:20px}
+.cal-modal{background:var(--surface);border-radius:var(--r);padding:24px;max-width:320px;width:100%;border:0.5px solid var(--border)}
+.cal-title{font-size:13.5px;font-weight:500;margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.cal-input{width:100%;padding:9px 12px;border:0.5px solid var(--border2);border-radius:var(--rs);font-size:13px;background:var(--bg2);color:var(--text);outline:none;margin-bottom:14px}
+.cal-input:focus{border-color:var(--accent)}
+.cal-btns{display:flex;gap:8px}
+.mclose{font-size:12px;padding:7px 14px;border-radius:7px;border:0.5px solid var(--border2);background:var(--bg2);color:var(--text2);cursor:pointer}
+.mclose:hover{background:var(--bg3)}
 
 .qitem{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--rs);padding:14px;margin-bottom:10px}
 .qtext{font-size:13px;font-weight:500;margin-bottom:10px}
@@ -163,18 +213,22 @@ button,input,select,textarea{font-family:inherit}
 .qopt{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text2);cursor:pointer}
 .qopt.cor{color:var(--accent);font-weight:500}
 .night .qopt.cor{color:var(--gold)}
-
-.tblx{width:100%;font-size:12.5px;border-collapse:collapse}
-.tblx th{text-align:left;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;padding:7px 10px;border-bottom:0.5px solid var(--border)}
-.tblx td{padding:9px 10px;border-bottom:0.5px solid var(--border)}
-.tblx tr:last-child td{border-bottom:none}
-.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px}
-.dot.active{background:#4A6741}
-.night .dot.active{background:var(--gold)}
-.dot.inactive{background:var(--border2)}
-.ta{font-size:11.5px;color:var(--accent);background:none;border:none;cursor:pointer;font-weight:500}
-.night .ta{color:var(--gold)}
-
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.pc{border-radius:var(--rs);overflow:hidden;border:0.5px solid var(--border);cursor:pointer}
+.pc:hover{border-color:var(--accent)}
+.pc img{width:100%;height:85px;object-fit:cover;display:block;background:var(--bg2)}
+.plb{font-size:11px;padding:5px 7px;color:var(--text2);background:var(--surface)}
+.period-row{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.prbtn{font-size:11.5px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg2);color:var(--text2);cursor:pointer}
+.prbtn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.night .prbtn.active{background:var(--gold);color:#1C1C1A;border-color:var(--gold)}
+.score-ring-sm{width:36px;height:36px;border-radius:50%;border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:var(--accent);flex-shrink:0}
+.night .score-ring-sm{border-color:var(--gold);color:var(--gold)}
+.score-ring-sm.high{border-color:#3B6D11;color:#3B6D11}
+.score-ring-sm.mid{border-color:#BA7517;color:#BA7517}
+.score-ring-sm.low{border-color:#A32D2D;color:#A32D2D}
+.bshare{font-size:12px;padding:7px 14px;border-radius:7px;border:1px solid var(--border2);background:var(--bg2);color:var(--text2);cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.bshare:hover{border-color:#185FA5;color:#185FA5}
 .step-row{display:flex;flex-direction:column;gap:10px}
 .step-item{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;background:var(--bg2);border-radius:var(--rs);border:0.5px solid var(--border)}
 .step-num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;margin-top:1px}
@@ -183,36 +237,6 @@ button,input,select,textarea{font-family:inherit}
 .step-desc{font-size:12px;color:var(--text2);line-height:1.6}
 .step-badge{font-size:10px;padding:2px 8px;border-radius:10px;background:#E4EBE2;color:#3A5332;margin-left:8px;font-weight:500}
 .night .step-badge{background:#2E2E2A;color:var(--gold)}
-
-.insight-row{display:flex;flex-direction:column;gap:8px}
-.insight-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg2);border-radius:var(--rs);border:0.5px solid var(--border)}
-.insight-bar-wrap{flex:1;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden}
-.insight-bar{height:100%;background:var(--accent);border-radius:3px}
-.night .insight-bar{background:var(--gold)}
-.insight-label{font-size:12.5px;color:var(--text);min-width:130px}
-.insight-count{font-size:12px;color:var(--text3);min-width:28px;text-align:right}
-
-.alert-box{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;background:#FAEEDA;border-radius:var(--rs);border:0.5px solid #EF9F27;margin-bottom:14px}
-.night .alert-box{background:#2E2A20;border-color:#633806}
-.alert-box i{font-size:16px;color:#854F0B;flex-shrink:0;margin-top:1px}
-.night .alert-box i{color:#FAC775}
-.alert-text{font-size:12.5px;color:#633806;line-height:1.6}
-.night .alert-text{color:#FAC775}
-
-.period-row{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
-.prbtn{font-size:11.5px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg2);color:var(--text2);cursor:pointer}
-.prbtn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-.night .prbtn.active{background:var(--gold);color:#1C1C1A;border-color:var(--gold)}
-
-.score-ring{width:44px;height:44px;border-radius:50%;border:2.5px solid var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:500;color:var(--accent)}
-.night .score-ring{border-color:var(--gold);color:var(--gold)}
-
-.modal-bg{min-height:500px;background:rgba(0,0,0,.48);display:flex;align-items:center;justify-content:center;padding:20px;border-radius:var(--r)}
-.modal{background:var(--surface);border-radius:var(--r);padding:22px;max-width:340px;width:100%;border:0.5px solid var(--border)}
-.modal img{width:100%;border-radius:var(--rs);margin-bottom:12px;object-fit:cover;height:180px}
-.modal-title{font-size:14px;font-weight:500;margin-bottom:5px}
-.modal-desc{font-size:12px;color:var(--text2);line-height:1.6}
-.mclose{margin-top:14px;font-size:12px;padding:7px 18px;border-radius:7px;border:0.5px solid var(--border2);background:var(--bg2);color:var(--text2);cursor:pointer}
 </style>
 </head>
 <body>
@@ -220,25 +244,29 @@ button,input,select,textarea{font-family:inherit}
 <div id="auth">
   <div class="acard">
     <div class="abrand">
-      <div class="aicon"><i class="ti ti-chef-hat"></i></div>
-      <div><div class="aname">Ops Companion</div><div class="asub">SmartHospitality.ai</div></div>
+      <div class="aicon"><span>SH</span></div>
+      <div><div class="aname">SmartHospitality.ai</div><div class="asub">Ops Companion Platform</div></div>
     </div>
-    <div class="fl"><label>Username</label><input type="text" id="lu" value="staff" placeholder="Username"/></div>
-    <div class="fl"><label>Password</label><input type="password" id="lp" value="staff123" placeholder="Password" onkeydown="if(event.key==='Enter')login()"/></div>
+    <div class="fl"><label>Username</label><input type="text" id="lu" value="director" placeholder="Username"/></div>
+    <div class="fl"><label>Password</label><input type="password" id="lp" value="dir123" placeholder="Password" onkeydown="if(event.key==='Enter')login()"/></div>
     <button class="bmain" onclick="login()">Sign in</button>
     <div id="lerr" class="err hidden">Incorrect username or password.</div>
-    <div class="dhint"><strong>admin / admin123</strong> &nbsp;·&nbsp; <strong>manager / mgr123</strong> &nbsp;·&nbsp; <strong>staff / staff123</strong></div>
+    <div class="dhint">
+      <strong>director / dir123</strong> &nbsp;·&nbsp; <strong>hr / hr123</strong><br>
+      <strong>manager / mgr123</strong> &nbsp;·&nbsp; <strong>staff / staff123</strong><br>
+      <strong>admin / admin123</strong>
+    </div>
   </div>
 </div>
 
 <div id="app">
   <div class="tb">
     <div class="tbl">
-      <div class="ticon"><i class="ti ti-chef-hat"></i></div>
-      <div><div class="tname">Ops Companion</div><div class="tout" id="outl">SmartHospitality.ai</div></div>
+      <div class="ticon"><span>SH</span></div>
+      <div><div class="tname" id="tbName">SmartHospitality.ai</div><div class="tout" id="tbSub">Ops Companion</div></div>
     </div>
     <div class="tbr">
-      <span class="rpill" id="rp">Staff</span>
+      <span class="rpill" id="rp">Director</span>
       <button class="ibtn" onclick="toggleNight()" aria-label="Toggle night mode"><i class="ti ti-moon" id="mi"></i></button>
       <button class="ibtn" onclick="logout()" aria-label="Sign out"><i class="ti ti-logout"></i></button>
     </div>
@@ -247,60 +275,86 @@ button,input,select,textarea{font-family:inherit}
   <div class="pls" id="pls"></div>
 </div>
 
+<div class="cal-overlay hidden" id="calOverlay">
+  <div class="cal-modal">
+    <div class="cal-title"><i class="ti ti-calendar" style="font-size:16px;color:var(--accent)" aria-hidden="true"></i>When was this topic briefed?</div>
+    <p style="font-size:12.5px;color:var(--text2);margin-bottom:12px">Topic: <strong id="calTopicName" style="color:var(--text)"></strong></p>
+    <input type="date" class="cal-input" id="calDate"/>
+    <div class="cal-btns">
+      <button class="bsm" onclick="confirmCover()"><i class="ti ti-check" style="font-size:12px"></i> Confirm</button>
+      <button class="mclose" onclick="closeCalModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const LANGS={en:'English',tr:'Türkçe',es:'Español',ar:'العربية',zh:'中文',ru:'Русский'};
 const USERS=[
+  {u:'director',p:'dir123',role:'director',name:'Sarah L.',lang:'en'},
+  {u:'hr',p:'hr123',role:'hr',name:'Tom K.',lang:'en'},
   {u:'admin',p:'admin123',role:'admin',name:'Gökhan H.',lang:'en'},
   {u:'manager',p:'mgr123',role:'manager',name:'Layla M.',lang:'en'},
+  {u:'manager2',p:'mgr456',role:'manager',name:'James R.',lang:'en'},
   {u:'staff',p:'staff123',role:'staff',name:'Cem A.',lang:'en'},
   {u:'staff2',p:'staff456',role:'staff',name:'Maria S.',lang:'es'},
 ];
-const SYS=`You are the AI operations assistant for a luxury restaurant on SmartHospitality.ai.
-MENU: Truffle Risotto (arborio,truffle oil,parmesan,butter,onion — ALLERGENS: dairy,gluten — removable: onion — non-removable: parmesan). Wagyu Beef Tenderloin (wagyu,Bearnaise,potatoes,vegetables — ALLERGENS: eggs,dairy — removable: potatoes). Grilled Salmon (salmon,lemon butter,capers,dill,asparagus — ALLERGENS: fish,dairy — all removable). Caesar Salad (romaine,parmesan,croutons,anchovy dressing — ALLERGENS: fish,gluten,eggs,dairy — croutons removable). Lemon Tart (lemon curd,meringue,butter pastry — ALLERGENS: eggs,dairy,gluten — no modifications). Espresso Martini (vodka,espresso,coffee liqueur — no allergens, vegan).
-UPSELLS: Risotto to Barolo or white Burgundy, offer truffle supplement. Wagyu to Chateau Pichon Baron or Negroni, suggest truffle fries. Salmon to Chablis or Sauvignon Blanc. Caesar to add grilled chicken or Pinot Grigio.
-OUTLET: Open Tuesday to Sunday 12:00 to 23:00. Closed Mondays. Brunch Saturday and Sunday 12:00 to 15:00. Last food order 22:00, last drinks 22:30. Live jazz Friday and Saturday from 20:00. Smart casual dress code. Reservations required for dinner, walk-ins welcome for lunch.
-SOPs: Guest complaint: listen fully, empathise, never argue, involve manager if needed, offer goodwill gesture with manager approval, log in incident book. Allergen query: always verify with kitchen before confirming, never guess. Spillage: apologise sincerely, replace item free of charge, notify manager.
-Be concise and practical. Staff are on the floor serving guests. Respond in the specified language.`;
 
-let cu=null,chat=[],loading=false,night=false,apPeriod='3m';
-let files={menu:[],sops:[],factsheet:[]};
+const OUTLETS=[
+  {id:1,name:'Gallada',type:'Fine Dining',hotel:'Peninsula Istanbul',staff:8,avgQuiz:72,queries:47,mgr:'Layla M.',mgrU:'manager'},
+  {id:2,name:'Topside',type:'Rooftop Bar',hotel:'Peninsula Istanbul',staff:5,avgQuiz:65,queries:31,mgr:'James R.',mgrU:'manager2'},
+  {id:3,name:'Lobby Lounge',type:'All-day Dining',hotel:'Peninsula Istanbul',staff:12,avgQuiz:80,queries:58,mgr:'Layla M.',mgrU:'manager'},
+];
+
+let INSIGHTS=[
+  {topic:'Allergen questions',count:38,pct:81,covered:false,covDate:null,status:null},
+  {topic:'Dish modifications',count:29,pct:62,covered:false,covDate:null,status:null},
+  {topic:'Upsell pairings',count:21,pct:45,covered:true,covDate:'2026-05-10',status:'effective'},
+  {topic:'Outlet hours',count:14,pct:30,covered:true,covDate:'2026-05-08',status:'review'},
+  {topic:'SOP guidance',count:9,pct:19,covered:false,covDate:null,status:null},
+];
+
+let MANAGERS=[
+  {u:'manager',name:'Layla M.',outlet:'Gallada & Lobby Lounge',score:8.2,topics:3,quizAvg:76,notes:'Strong on allergen training. Upselling coverage needs follow-up.',covered:3,total:5},
+  {u:'manager2',name:'James R.',outlet:'Topside',score:6.5,topics:1,quizAvg:65,notes:'Good engagement with staff but topic coverage inconsistent.',covered:1,total:5},
+];
+
+const QUIZZES=[{id:1,title:'Allergen awareness',questions:[
+  {q:'Which dish contains anchovy?',opts:['Truffle Risotto','Caesar Salad','Grilled Salmon','Lemon Tart'],c:1},
+  {q:'Can parmesan be removed from the Truffle Risotto?',opts:['Yes, easily','No — integral to dish','Only with chef approval','Yes if requested'],c:1},
+  {q:'Allergens in the Lemon Tart?',opts:['Nuts and dairy','Gluten only','Eggs, dairy and gluten','Fish and eggs'],c:2},
+],assigned:['staff','staff2']}];
+let qr={staff:{1:{score:2,total:3}},staff2:{}};
+
+const PHOTOS=[
+  {name:'Truffle Risotto',desc:'Shallow bowl, truffle shavings, micro herbs, truffle oil drizzle.',img:'https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&h=280&fit=crop'},
+  {name:'Wagyu Tenderloin',desc:'Sliced 45°, Bearnaise separate, micro cress garnish.',img:'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=280&fit=crop'},
+  {name:'Espresso Martini',desc:'Coupe glass, three coffee beans on foam, clean rim.',img:'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=280&fit=crop'},
+  {name:'Lemon Tart',desc:'Torched meringue, raspberry coulis streak, edible flower.',img:'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=400&h=280&fit=crop'},
+];
+
+const ONBOARDING=[
+  {day:'Day 1',title:'Welcome & outlet orientation',desc:'Fact sheet, hours, dress code, reservation policy.',badge:'Auto-generated'},
+  {day:'Day 2',title:'Menu knowledge',desc:'Ingredients, allergens, and preparation of all dishes.',badge:'Auto-generated'},
+  {day:'Day 3',title:'Beverages & upselling',desc:'Wine pairings, cocktail knowledge, upsell techniques.',badge:'Auto-generated'},
+  {day:'Day 4',title:'SOPs & service standards',desc:'Complaint handling, spillage, allergen protocol.',badge:'Auto-generated'},
+  {day:'Day 5',title:'Assessment & sign-off',desc:'Quiz, knowledge test, manager sign-off.',badge:'Auto-generated'},
+];
+
+const SYS=`You are the AI operations assistant for a luxury restaurant on SmartHospitality.ai.
+MENU: Truffle Risotto (allergens: dairy,gluten — removable: onion — non-removable: parmesan). Wagyu Beef Tenderloin (allergens: eggs,dairy — removable: potatoes). Grilled Salmon (allergens: fish,dairy — all removable). Caesar Salad (allergens: fish,gluten,eggs,dairy — croutons removable). Lemon Tart (allergens: eggs,dairy,gluten — no modifications). Espresso Martini (vegan, no allergens).
+UPSELLS: Risotto to Barolo or white Burgundy. Wagyu to Chateau Pichon Baron, truffle fries. Salmon to Chablis. Caesar to grilled chicken or Pinot Grigio.
+OUTLET: Open Tue-Sun 12:00-23:00. Closed Mon. Brunch Sat-Sun 12:00-15:00. Last food 22:00, drinks 22:30. Jazz Fri-Sat 20:00. Smart casual.
+SOPs: Complaint: listen, empathise, involve manager, offer goodwill, log it. Allergen: always verify with kitchen. Spillage: apologise, replace free, notify manager.
+Be concise and practical. Respond in the specified language.`;
+
+let cu=null,chat=[],loading=false,night=false,pendingTopic=null,apPeriod='3m';
 let stf=[
   {u:'staff',name:'Cem A.',role:'staff',status:'active',lang:'en',quiz:1,asked:47,lastActive:'Today'},
   {u:'staff2',name:'Maria S.',role:'staff',status:'active',lang:'es',quiz:0,asked:23,lastActive:'Yesterday'},
   {u:'staff3',name:'Ahmed K.',role:'staff',status:'inactive',lang:'ar',quiz:0,asked:8,lastActive:'5 days ago'},
 ];
-const PHOTOS=[
-  {name:'Truffle Risotto',desc:'Shallow bowl, generous truffle shavings on top, micro herbs, drizzle of truffle oil. Parmesan crisp on the side.',img:'https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&h=280&fit=crop'},
-  {name:'Wagyu Tenderloin',desc:'Sliced at 45 degree angle. Bearnaise served separately in a small jug. Roasted vegetables fanned beside. Micro cress garnish.',img:'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=280&fit=crop'},
-  {name:'Espresso Martini',desc:'Coupe glass, three coffee beans centred on foam. Clean rim, no ice, coaster underneath.',img:'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=280&fit=crop'},
-  {name:'Lemon Tart',desc:'Torched Italian meringue on top. Raspberry coulis streak across the plate. Single edible flower.',img:'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=400&h=280&fit=crop'},
-];
-const QUIZZES=[{id:1,title:'Allergen awareness',questions:[
-  {q:'Which dish contains anchovy?',opts:['Truffle Risotto','Caesar Salad','Grilled Salmon','Lemon Tart'],c:1},
-  {q:'Can parmesan be removed from the Truffle Risotto for a dairy-free guest?',opts:['Yes, easily','No — it is integral to the dish','Only with chef approval','Yes if requested in advance'],c:1},
-  {q:'What allergens does the Lemon Tart contain?',opts:['Nuts and dairy','Gluten only','Eggs, dairy and gluten','Fish and eggs'],c:2},
-],assigned:['staff','staff2']}];
-let qr={staff:{1:{score:2,total:3}},staff2:{}};
-const INSIGHTS=[
-  {topic:'Allergen questions',count:38,pct:81},
-  {topic:'Dish modifications',count:29,pct:62},
-  {topic:'Upsell pairings',count:21,pct:45},
-  {topic:'Outlet hours',count:14,pct:30},
-  {topic:'SOP guidance',count:9,pct:19},
-];
-const ONBOARDING=[
-  {day:'Day 1',title:'Welcome & outlet orientation',desc:'Fact sheet, hours, dress code, reservation policy, team introduction.',badge:'Auto-generated'},
-  {day:'Day 2',title:'Menu knowledge — starters & mains',desc:'Ingredients, allergens, and preparation of all main dishes.',badge:'Auto-generated'},
-  {day:'Day 3',title:'Beverages & upselling',desc:'Wine pairings, cocktail knowledge, upsell techniques.',badge:'Auto-generated'},
-  {day:'Day 4',title:'SOPs & service standards',desc:'Guest complaint handling, spillage, allergen protocol, table service.',badge:'Auto-generated'},
-  {day:'Day 5',title:'Assessment & sign-off',desc:'Allergen quiz, menu knowledge test, manager sign-off checklist.',badge:'Auto-generated'},
-];
 
-function toggleNight(){
-  night=!night;
-  document.body.classList.toggle('night',night);
-  document.getElementById('mi').className=night?'ti ti-sun':'ti ti-moon';
-}
+function toggleNight(){night=!night;document.body.classList.toggle('night',night);document.getElementById('mi').className=night?'ti ti-sun':'ti ti-moon';}
 
 function login(){
   const u=document.getElementById('lu').value.trim();
@@ -310,45 +364,33 @@ function login(){
   if(!user)return;
   cu={...user};
   document.getElementById('auth').style.display='none';
-  const a=document.getElementById('app');
-  a.style.display='flex';a.style.flexDirection='column';
-  const rp=document.getElementById('rp');
-  rp.textContent=cu.role.charAt(0).toUpperCase()+cu.role.slice(1);
-  rp.className='rpill '+cu.role;
-  document.getElementById('outl').textContent='Gallada — Peninsula Istanbul';
+  const a=document.getElementById('app');a.style.display='flex';a.style.flexDirection='column';
+  document.getElementById('rp').textContent=cu.role.charAt(0).toUpperCase()+cu.role.slice(1);
+  document.getElementById('rp').className='rpill '+cu.role;
+  document.getElementById('tbSub').textContent={director:'Director of F&B',hr:'Human Resources',manager:'Restaurant Manager',staff:'Line Staff',admin:'Platform Admin'}[cu.role]||'';
   buildApp();
 }
-
-function logout(){
-  cu=null;chat=[];
-  document.getElementById('app').style.display='none';
-  document.getElementById('auth').style.display='flex';
-}
+function logout(){cu=null;chat=[];document.getElementById('app').style.display='none';document.getElementById('auth').style.display='flex';}
 
 function buildApp(){
   const r=cu.role;
-  const tabs=r==='admin'
-    ?[{id:'users',icon:'ti-users',label:'Users'},{id:'metrics',icon:'ti-chart-bar',label:'Overview'}]
-    :r==='manager'
-    ?[{id:'chat',icon:'ti-message-circle',label:'Assistant'},{id:'insights',icon:'ti-trending-up',label:'Insights'},{id:'onboard',icon:'ti-route',label:'Onboarding'},{id:'appraisal',icon:'ti-award',label:'Appraisals'},{id:'knowledge',icon:'ti-database',label:'Knowledge'},{id:'photos',icon:'ti-photo',label:'Photos'},{id:'quizzes',icon:'ti-school',label:'Quizzes'},{id:'staff',icon:'ti-users',label:'Staff'}]
+  const tabs=
+    r==='director'?[{id:'outlets',icon:'ti-building',label:'Outlets'},{id:'managers',icon:'ti-users',label:'Manager scores'}]
+    :r==='hr'?[{id:'hr',icon:'ti-award',label:'Performance'},{id:'hrmanagers',icon:'ti-users',label:'All managers'}]
+    :r==='manager'?[{id:'chat',icon:'ti-message-circle',label:'Assistant'},{id:'insights',icon:'ti-trending-up',label:'Insights'},{id:'onboard',icon:'ti-route',label:'Onboarding'},{id:'appraisal',icon:'ti-award',label:'Appraisals'},{id:'knowledge',icon:'ti-database',label:'Knowledge'},{id:'photos',icon:'ti-photo',label:'Photos'},{id:'quizzes',icon:'ti-school',label:'Quizzes'},{id:'staff',icon:'ti-users',label:'Staff'}]
+    :r==='admin'?[{id:'outlets',icon:'ti-building',label:'Outlets'},{id:'managers',icon:'ti-users',label:'Users'}]
     :[{id:'chat',icon:'ti-message-circle',label:'Ask AI'},{id:'onboard',icon:'ti-route',label:'My Training'},{id:'photos',icon:'ti-photo',label:'Photos'},{id:'quizzes',icon:'ti-school',label:'My Quizzes'}];
   const nav=document.getElementById('nav');
   const pls=document.getElementById('pls');
   nav.innerHTML='';pls.innerHTML='';
   tabs.forEach((t,i)=>{
-    const b=document.createElement('button');
-    b.className='nb'+(i===0?' active':'');
-    b.dataset.tab=t.id;
-    b.innerHTML=`<i class="ti ${t.icon}"></i>${t.label}`;
-    b.onclick=()=>sw(t.id);
-    nav.appendChild(b);
-    const p=document.createElement('div');
-    p.className='pl'+(i===0?' active':'');
-    p.id='p-'+t.id;
-    pls.appendChild(p);
-    rp2(t.id);
+    const b=document.createElement('button');b.className='nb'+(i===0?' active':'');b.dataset.tab=t.id;
+    b.innerHTML=`<i class="ti ${t.icon}" aria-hidden="true"></i>${t.label}`;
+    b.onclick=()=>sw(t.id);nav.appendChild(b);
+    const p=document.createElement('div');p.className='pl'+(i===0?' active':'');p.id='p-'+t.id;
+    pls.appendChild(p);rp2(t.id);
   });
-  if(cu.role!=='admin') initGreet();
+  if(r==='staff'||r==='manager') initGreet();
 }
 
 function sw(id){
@@ -359,25 +401,167 @@ function sw(id){
 function rp2(id){
   const el=document.getElementById('p-'+id);if(!el)return;
   const r=cu.role;
-  if(id==='chat')el.innerHTML=bChat(r);
+  if(id==='outlets')el.innerHTML=r==='director'?bOutlets():bAdminOutlets();
+  else if(id==='managers')el.innerHTML=r==='director'?bDirectorManagers():bAdminUsers();
+  else if(id==='hr'||id==='hrmanagers')el.innerHTML=bHR();
+  else if(id==='chat')el.innerHTML=bChat(r);
   else if(id==='insights')el.innerHTML=bInsights();
   else if(id==='onboard')el.innerHTML=bOnboard(r);
   else if(id==='appraisal')el.innerHTML=bAppraisal();
   else if(id==='knowledge')el.innerHTML=bKnowledge();
   else if(id==='photos')el.innerHTML=bPhotos(r);
   else if(id==='quizzes')el.innerHTML=bQuizzes(r);
-  else if(id==='staff'||id==='users')el.innerHTML=bUsers(r);
-  else if(id==='metrics')el.innerHTML=bMetrics();
+  else if(id==='staff')el.innerHTML=bStaff();
+}
+
+function bOutlets(){
+  return`<div class="card">
+  <div class="ctitle"><i class="ti ti-building" aria-hidden="true"></i>Your outlets — Peninsula Istanbul</div>
+  <div class="outlet-grid">
+    ${OUTLETS.map(o=>`<div class="outlet-card" onclick="openOutlet(${o.id})">
+      <div class="oc-name">${o.name}</div>
+      <div class="oc-sub">${o.type}</div>
+      <div class="oc-metrics">
+        <div class="oc-metric"><strong>${o.avgQuiz}%</strong>Quiz avg</div>
+        <div class="oc-metric"><strong>${o.queries}</strong>Queries/wk</div>
+        <div class="oc-metric"><strong>${o.staff}</strong>Staff</div>
+      </div>
+    </div>`).join('')}
+  </div>
+</div>`;
+}
+
+function openOutlet(id){
+  const o=OUTLETS.find(x=>x.id===id);
+  const el=document.getElementById('p-outlets');
+  const mgr=MANAGERS.find(m=>m.u===o.mgrU)||MANAGERS[0];
+  el.innerHTML=`
+  <button class="back-btn" onclick="rp2('outlets')"><i class="ti ti-arrow-left" aria-hidden="true"></i> All outlets</button>
+  <div class="card">
+    <div class="ctitle"><i class="ti ti-building" aria-hidden="true"></i>${o.name} — ${o.type}</div>
+    <div class="mgrid">
+      <div class="mc"><div class="ml">Staff</div><div class="mv">${o.staff}</div></div>
+      <div class="mc"><div class="ml">Quiz avg</div><div class="mv">${o.avgQuiz}%</div></div>
+      <div class="mc"><div class="ml">Queries/wk</div><div class="mv">${o.queries}</div></div>
+      <div class="mc"><div class="ml">Manager</div><div class="mv" style="font-size:13px">${o.mgr}</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ctitle"><i class="ti ti-trending-up" aria-hidden="true"></i>Most asked topics this week</div>
+    <div class="alert-box"><i class="ti ti-bell" aria-hidden="true"></i><div class="alert-text">Allergen questions are 81% of all queries this week. This topic has not yet been briefed by the manager.</div></div>
+    <div class="insight-row">
+      ${INSIGHTS.map(ins=>`<div class="insight-item">
+        <div class="insight-label">${ins.topic}</div>
+        <div class="insight-bar-wrap"><div class="insight-bar" style="width:${ins.pct}%"></div></div>
+        <div class="insight-count">${ins.count}</div>
+        ${ins.covered?`<span class="insight-status status-${ins.status}">${ins.status==='effective'?'Effective':ins.status==='review'?'Review again':'Re-train'}</span>`:'<span style="font-size:11px;color:var(--text3)">Not briefed</span>'}
+      </div>`).join('')}
+    </div>
+  </div>
+  <div class="card">
+    <div class="ctitle"><i class="ti ti-award" aria-hidden="true"></i>Manager performance</div>
+    <div class="manager-card">
+      <div class="mgr-avatar">${mgr.name.split(' ').map(n=>n[0]).join('')}</div>
+      <div class="mgr-info">
+        <div class="mgr-name">${mgr.name}</div>
+        <div class="mgr-sub">Topics briefed: ${mgr.covered}/${mgr.total} &nbsp;·&nbsp; Team quiz avg: ${mgr.quizAvg}%</div>
+        <div class="mgr-note">"${mgr.notes}"</div>
+      </div>
+      <div class="score-ring ${mgr.score>=8?'high':mgr.score>=6?'mid':'low'}">${mgr.score}</div>
+    </div>
+  </div>`;
+}
+
+function bDirectorManagers(){
+  return`<div class="card">
+  <div class="ctitle"><i class="ti ti-users" aria-hidden="true"></i>Manager performance scores</div>
+  ${MANAGERS.map(m=>`<div class="manager-card">
+    <div class="mgr-avatar">${m.name.split(' ').map(n=>n[0]).join('')}</div>
+    <div class="mgr-info" style="width:100%">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px">
+        <div>
+          <div class="mgr-name">${m.name} <span style="font-size:11px;color:var(--text3);font-weight:400">· ${m.outlet}</span></div>
+          <div class="mgr-sub">Briefed: ${m.covered}/${m.total} topics &nbsp;·&nbsp; Quiz avg: ${m.quizAvg}%</div>
+        </div>
+        <div class="score-ring ${m.score>=8?'high':m.score>=6?'mid':'low'}">${m.score}</div>
+      </div>
+      <div class="rating-wrap">
+        <span class="rating-label">Director rating:</span>
+        <input type="range" min="1" max="10" value="${Math.round(m.score)}" step="1" style="flex:1;accent-color:var(--accent)" oninput="document.getElementById('rv-${m.u}').textContent=this.value"/>
+        <span class="rating-val" id="rv-${m.u}">${Math.round(m.score)}</span>
+        <button class="bsm" style="font-size:11px;padding:5px 12px" onclick="saveRating('${m.u}',this)"><i class="ti ti-check" style="font-size:12px"></i> Save</button>
+      </div>
+      <textarea placeholder="Notes for HR…" style="width:100%;margin-top:8px;padding:8px 10px;font-size:12px;border:0.5px solid var(--border2);border-radius:var(--rs);background:var(--bg2);color:var(--text);outline:none;resize:none;line-height:1.5" rows="2">${m.notes}</textarea>
+    </div>
+  </div>`).join('')}
+</div>`;
+}
+
+function bHR(){
+  const avg=(MANAGERS.reduce((a,m)=>a+m.score,0)/MANAGERS.length).toFixed(1);
+  return`<div class="card">
+  <div class="ctitle"><i class="ti ti-award" aria-hidden="true"></i>HR — Manager performance overview</div>
+  <div class="mgrid">
+    <div class="mc"><div class="ml">Managers tracked</div><div class="mv">${MANAGERS.length}</div></div>
+    <div class="mc"><div class="ml">Platform avg score</div><div class="mv">${avg}</div></div>
+    <div class="mc"><div class="ml">Topics briefed total</div><div class="mv">${MANAGERS.reduce((a,m)=>a+m.covered,0)}</div></div>
+  </div>
+  ${MANAGERS.map(m=>`<div class="manager-card">
+    <div class="mgr-avatar">${m.name.split(' ').map(n=>n[0]).join('')}</div>
+    <div class="mgr-info">
+      <div class="mgr-name">${m.name}</div>
+      <div class="mgr-sub">${m.outlet} &nbsp;·&nbsp; Quiz avg: ${m.quizAvg}% &nbsp;·&nbsp; Topics: ${m.covered}/${m.total}</div>
+      <div class="mgr-note">"${m.notes}"</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+      <div class="score-ring ${m.score>=8?'high':m.score>=6?'mid':'low'}">${m.score}</div>
+      <button class="bout" style="font-size:11px;padding:5px 12px;white-space:nowrap" onclick="alert('PDF exported for ${m.name}.')"><i class="ti ti-download" style="font-size:12px"></i> Export</button>
+    </div>
+  </div>`).join('')}
+</div>`;
+}
+
+function bAdminOutlets(){
+  return`<div class="card">
+  <div class="ctitle"><i class="ti ti-building" aria-hidden="true"></i>All outlets</div>
+  <div class="outlet-grid">
+    ${OUTLETS.map(o=>`<div class="outlet-card">
+      <div class="oc-name">${o.name}</div>
+      <div class="oc-sub">${o.type}</div>
+      <div class="oc-metrics">
+        <div class="oc-metric"><strong>${o.staff}</strong>Staff</div>
+        <div class="oc-metric"><strong>${o.avgQuiz}%</strong>Quiz</div>
+      </div>
+    </div>`).join('')}
+  </div>
+</div>`;
+}
+
+function bAdminUsers(){
+  return`<div class="card">
+  <div class="ctitle"><i class="ti ti-users" aria-hidden="true"></i>All users</div>
+  <table class="tblx">
+    <thead><tr><th>Name</th><th>Role</th><th>Username</th><th>Status</th></tr></thead>
+    <tbody>
+      ${USERS.map(u=>`<tr>
+        <td>${u.name}</td>
+        <td><span class="rpill ${u.role}" style="font-size:9px">${u.role}</span></td>
+        <td style="color:var(--text2)">${u.u}</td>
+        <td><span class="dot active"></span>active</td>
+      </tr>`).join('')}
+    </tbody>
+  </table>
+</div>`;
 }
 
 function bChat(r){
   const isS=r==='staff';
   const qps=isS
-    ?['Allergens in the Caesar salad?','Can I remove onion from the risotto?','Best pairing for the wagyu?','Open for brunch on Sunday?','Last order time tonight?']
-    :['Upsell opportunities tonight?','Guest complaint SOP?','Which dishes are vegan?','Entertainment schedule this week?'];
+    ?['Allergens in the Caesar salad?','Remove onion from risotto?','Wagyu pairing?','Brunch on Sunday?','Last order time?']
+    :['Upsell opportunities tonight?','Guest complaint SOP?','Vegan options?','Entertainment schedule?'];
   return`<div class="card" style="flex:1;display:flex;flex-direction:column">
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-    <i class="ti ti-language" style="font-size:16px;color:var(--text3)"></i>
+    <i class="ti ti-language" style="font-size:16px;color:var(--text3)" aria-hidden="true"></i>
     <select id="langS" onchange="cu.lang=this.value" style="font-size:12px;padding:6px 10px;border:0.5px solid var(--border2);border-radius:var(--rs);background:var(--bg2);color:var(--text);outline:none">
       ${Object.entries(LANGS).map(([k,v])=>`<option value="${k}"${k===cu.lang?' selected':''}>${v}</option>`).join('')}
     </select>
@@ -388,31 +572,38 @@ function bChat(r){
   <div class="inrow">
     <textarea id="ci" placeholder="Ask about menu, allergens, SOPs, hours…" rows="1"
       onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();send()}"
-      oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px'"></textarea>
-    <button class="sbtn" id="sb" onclick="send()"><i class="ti ti-send-2"></i></button>
+      oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,90)+'px'"></textarea>
+    <button class="sbtn" id="sb" onclick="send()"><i class="ti ti-send-2" aria-hidden="true"></i></button>
   </div>
 </div>`;
 }
 
 function bInsights(){
+  const covered=INSIGHTS.filter(i=>i.covered).length;
   return`<div class="card">
-  <div class="ctitle"><i class="ti ti-trending-up"></i>What your team is asking</div>
-  <div class="alert-box"><i class="ti ti-bell"></i><div class="alert-text"><strong>Heads up:</strong> Allergen questions make up 81% of all staff queries this week. Consider scheduling a team allergen briefing before the next service.</div></div>
+  <div class="ctitle"><i class="ti ti-trending-up" aria-hidden="true"></i>What your team is asking</div>
+  <div class="alert-box"><i class="ti ti-bell" aria-hidden="true"></i><div class="alert-text"><strong>Action needed:</strong> Allergen questions are 81% of staff queries this week. Mark as covered after your next team briefing — the system will track whether queries decrease.</div></div>
   <div class="insight-row">
-    ${INSIGHTS.map(i=>`<div class="insight-item">
-      <div class="insight-label">${i.topic}</div>
-      <div class="insight-bar-wrap"><div class="insight-bar" style="width:${i.pct}%"></div></div>
-      <div class="insight-count">${i.count}</div>
+    ${INSIGHTS.map((ins,i)=>`<div class="insight-item" id="irow-${i}">
+      <div class="insight-label">${ins.topic}</div>
+      <div class="insight-bar-wrap"><div class="insight-bar" style="width:${ins.pct}%"></div></div>
+      <div class="insight-count">${ins.count}</div>
+      ${ins.covered
+        ?`<span class="insight-status status-${ins.status}">${ins.status==='effective'?'Effective':ins.status==='review'?'Review again':'Re-train'}</span>
+           <span style="font-size:10px;color:var(--text3)">${ins.covDate}</span>`
+        :`<button class="done-btn" onclick="markCovered(${i})"><i class="ti ti-circle-check" style="font-size:12px"></i> Mark covered</button>`
+      }
     </div>`).join('')}
   </div>
+  <div style="font-size:11.5px;color:var(--text3);margin-top:12px;line-height:1.6">Topics briefed this week: <strong style="color:var(--text)">${covered}/${INSIGHTS.length}</strong>. Your performance score updates automatically.</div>
 </div>
 <div class="card">
-  <div class="ctitle"><i class="ti ti-chart-bar"></i>This week at a glance</div>
+  <div class="ctitle"><i class="ti ti-chart-bar" aria-hidden="true"></i>This week at a glance</div>
   <div class="mgrid">
     <div class="mc"><div class="ml">Total queries</div><div class="mv">47</div></div>
     <div class="mc"><div class="ml">Staff active</div><div class="mv">3</div></div>
-    <div class="mc"><div class="ml">Quiz completions</div><div class="mv">1</div></div>
-    <div class="mc"><div class="ml">Avg score</div><div class="mv">67%</div></div>
+    <div class="mc"><div class="ml">Topics covered</div><div class="mv">${covered}/${INSIGHTS.length}</div></div>
+    <div class="mc"><div class="ml">My score</div><div class="mv">8.2</div></div>
   </div>
 </div>`;
 }
@@ -420,12 +611,12 @@ function bInsights(){
 function bOnboard(r){
   const isMgr=r==='manager';
   return`<div class="card">
-  <div class="ctitle"><i class="ti ti-route"></i>${isMgr?'Onboarding programme':'My onboarding training'}</div>
+  <div class="ctitle"><i class="ti ti-route" aria-hidden="true"></i>${isMgr?'Onboarding programme':'My onboarding training'}</div>
   ${isMgr?`<div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
-    <button class="bsm" onclick="alert('AI will generate a 5-day onboarding plan from your uploaded food bible, SOPs and fact sheet automatically.')"><i class="ti ti-sparkles" style="font-size:13px"></i> Generate with AI</button>
-    <button class="bout"><i class="ti ti-upload" style="font-size:13px"></i> Upload manual training</button>
+    <button class="bsm" onclick="alert('AI generates a 5-day plan from your food bible, SOPs and fact sheet.')"><i class="ti ti-sparkles" style="font-size:13px"></i> Generate with AI</button>
+    <button class="bout"><i class="ti ti-upload" style="font-size:13px"></i> Upload manual</button>
     <button class="bout"><i class="ti ti-user-plus" style="font-size:13px"></i> Assign to new hire</button>
-  </div>`:`<p style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.6">Your manager has assigned you a 5-day onboarding programme. Complete each module before your next shift.</p>`}
+  </div>`:`<p style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.6">Your manager has assigned you a 5-day onboarding programme.</p>`}
   <div class="step-row">
     ${ONBOARDING.map((s,i)=>`<div class="step-item">
       <div class="step-num">${i+1}</div>
@@ -443,28 +634,24 @@ function bOnboard(r){
 }
 
 function bAppraisal(){
-  const periods={
-    '3m':{label:'Last 3 months',multiplier:1},
-    '6m':{label:'Last 6 months',multiplier:2},
-    '12m':{label:'Last 12 months',multiplier:5},
-  };
+  const periods={'3m':{label:'Last 3 months',m:1},'6m':{label:'Last 6 months',m:2},'12m':{label:'Last 12 months',m:5}};
   return`<div class="card">
-  <div class="ctitle"><i class="ti ti-award"></i>Staff appraisals</div>
+  <div class="ctitle"><i class="ti ti-award" aria-hidden="true"></i>Staff appraisals</div>
   <div class="period-row">
-    ${Object.entries(periods).map(([k,v])=>`<button class="prbtn${apPeriod===k?' active':''}" onclick="setPeriod('${k}')">${v.label}</button>`).join('')}
+    ${Object.entries(periods).map(([k,v])=>`<button class="prbtn${apPeriod===k?' active':''}" onclick="apPeriod='${k}';rp2('appraisal')">${v.label}</button>`).join('')}
   </div>
-  <div class="alist">
+  <div style="display:flex;flex-direction:column;gap:8px">
     ${stf.filter(s=>s.status==='active').map(s=>{
-      const m=periods[apPeriod].multiplier;
-      return`<div class="aitem">
+      const m=periods[apPeriod].m;
+      return`<div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg2);border-radius:var(--rs);border:0.5px solid var(--border);flex-wrap:wrap;gap:8px">
         <div style="flex:1;min-width:140px">
-          <div class="ainame">${s.name}</div>
-          <div class="aisub">Queries: ${s.asked*m} &nbsp;·&nbsp; Quizzes: ${s.quiz} &nbsp;·&nbsp; Last active: ${s.lastActive}</div>
+          <div style="font-size:13px;font-weight:500">${s.name}</div>
+          <div style="font-size:11.5px;color:var(--text3);margin-top:2px">Queries: ${s.asked*m} · Quizzes: ${s.quiz} · Last active: ${s.lastActive}</div>
         </div>
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-          <div class="score-ring">${s.quiz>0?'67%':'—'}</div>
-          <button class="bsm" style="font-size:11px;padding:6px 12px" onclick="showAp('${s.name}',${s.asked*m},${s.quiz})"><i class="ti ti-file-text" style="font-size:12px"></i> View</button>
-          <button class="bshare" style="font-size:11px;padding:6px 12px" onclick="alert('Summary shared with ${s.name}.')"><i class="ti ti-share" style="font-size:12px"></i> Share</button>
+          <div class="score-ring-sm ${s.quiz>0?'high':'mid'}">${s.quiz>0?'67%':'—'}</div>
+          <button class="bsm" style="font-size:11px;padding:5px 12px" onclick="alert('Appraisal report for ${s.name} — Strengths: allergen knowledge. Develop: upselling. Recommend: Day 3 module.')"><i class="ti ti-file-text" style="font-size:12px"></i> View</button>
+          <button class="bshare" style="font-size:11px;padding:5px 12px" onclick="alert('Shared with ${s.name}.')"><i class="ti ti-share" style="font-size:12px"></i> Share</button>
         </div>
       </div>`;
     }).join('')}
@@ -472,62 +659,30 @@ function bAppraisal(){
 </div>`;
 }
 
-function showAp(name,queries,quizzes){
-  const pls=document.getElementById('pls');
-  const old=document.getElementById('apMod');if(old)old.remove();
-  const m=document.createElement('div');m.id='apMod';m.style.cssText='position:absolute;top:0;left:0;right:0;bottom:0;z-index:99';
-  m.innerHTML=`<div class="modal-bg" onclick="if(event.target===this.parentElement||event.target.classList.contains('modal-bg'))closeM('apMod')">
-    <div class="modal">
-      <div class="ctitle"><i class="ti ti-award"></i>Appraisal — ${name}</div>
-      <div style="font-size:11px;color:var(--text3);margin-bottom:14px;text-transform:uppercase;letter-spacing:.04em">${apPeriod==='3m'?'Last 3 months':apPeriod==='6m'?'Last 6 months':'Last 12 months'} · Auto-generated</div>
-      <div class="mgrid" style="margin-bottom:14px">
-        <div class="mc"><div class="ml">AI queries</div><div class="mv" style="font-size:20px">${queries}</div></div>
-        <div class="mc"><div class="ml">Quiz score</div><div class="mv" style="font-size:20px">${quizzes>0?'67%':'—'}</div></div>
-      </div>
-      <div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:14px">
-        <strong style="color:var(--text)">Strengths:</strong> Consistent daily engagement with the AI assistant. Strong allergen knowledge improvement over the period.<br><br>
-        <strong style="color:var(--text)">Areas to develop:</strong> Upselling — only 3 upsell queries logged. Recommend the Beverages module.<br><br>
-        <strong style="color:var(--text)">Recommended action:</strong> Assign Day 3 onboarding module on Beverage & Upselling.
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="bsm" onclick="alert('PDF exported.')"><i class="ti ti-download" style="font-size:12px"></i> Export PDF</button>
-        <button class="bshare" onclick="alert('Shared with staff member.')"><i class="ti ti-share" style="font-size:12px"></i> Share with staff</button>
-        <button class="mclose" onclick="closeM('apMod')">Close</button>
-      </div>
-    </div>
-  </div>`;
-  pls.style.position='relative';pls.appendChild(m);
-}
-
-function setPeriod(p){
-  apPeriod=p;
-  const el=document.getElementById('p-appraisal');
-  if(el){el.innerHTML=bAppraisal();}
-}
-
 function bKnowledge(){
   return[
-    {k:'menu',icon:'ti-file-text',label:'Food bible',hint:'Ingredients, allergens, modifiable items per dish'},
+    {k:'menu',icon:'ti-file-text',label:'Food bible',hint:'Ingredients, allergens, modifiable items'},
     {k:'sops',icon:'ti-clipboard-list',label:'SOPs',hint:'Service standards and procedures'},
-    {k:'factsheet',icon:'ti-info-circle',label:'Outlet fact sheet',hint:'Hours, entertainment, dress code, reservations'},
+    {k:'factsheet',icon:'ti-info-circle',label:'Outlet fact sheet',hint:'Hours, entertainment, policies'},
   ].map(c=>`<div class="card">
-    <div class="ctitle"><i class="ti ${c.icon}"></i>${c.label}</div>
+    <div class="ctitle"><i class="ti ${c.icon}" aria-hidden="true"></i>${c.label}</div>
     <p style="font-size:12px;color:var(--text2);margin-bottom:12px">${c.hint}</p>
-    <label class="uz" for="up-${c.k}">
-      <input type="file" id="up-${c.k}" multiple accept=".pdf,.txt,.docx" onchange="addFile('${c.k}',this)">
-      <i class="ti ti-upload"></i><p>Click to upload &nbsp;·&nbsp; PDF, DOCX or TXT</p>
+    <label style="border:1px dashed var(--border2);border-radius:var(--rs);padding:18px;text-align:center;cursor:pointer;display:block" for="up-${c.k}">
+      <input type="file" id="up-${c.k}" multiple accept=".pdf,.txt,.docx" style="display:none">
+      <i class="ti ti-upload" style="font-size:24px;color:var(--text3);display:block;margin-bottom:6px" aria-hidden="true"></i>
+      <p style="font-size:12.5px;color:var(--text2)">Click to upload · PDF, DOCX or TXT</p>
     </label>
-    <div id="fl-${c.k}"></div>
   </div>`).join('');
 }
 
 function bPhotos(r){
   const canUp=r!=='staff';
   return`<div class="card">
-  <div class="ctitle"><i class="ti ti-photo"></i>Dish presentations</div>
-  ${canUp?`<label class="uz" for="up-photos" style="margin-bottom:14px">
-    <input type="file" id="up-photos" multiple accept="image/*" onchange="addPhoto(this)">
-    <i class="ti ti-camera-plus"></i><p>Upload presentation photos</p></label>`:''}
+  <div class="ctitle"><i class="ti ti-photo" aria-hidden="true"></i>Dish presentations</div>
+  ${canUp?`<label style="border:1px dashed var(--border2);border-radius:var(--rs);padding:16px;text-align:center;cursor:pointer;display:block;margin-bottom:14px" for="up-photos">
+    <input type="file" id="up-photos" multiple accept="image/*" style="display:none">
+    <i class="ti ti-camera-plus" style="font-size:22px;color:var(--text3);display:block;margin-bottom:5px" aria-hidden="true"></i>
+    <p style="font-size:12px;color:var(--text2)">Upload presentation photos</p></label>`:''}
   <div class="pgrid">
     ${PHOTOS.map((p,i)=>`<div class="pc" onclick="openPhoto(${i})">
       <img src="${p.img}" alt="${p.name}" loading="lazy"/>
@@ -544,10 +699,10 @@ function bQuizzes(r){
     return mine.map(q=>{
       const res=qr[cu.u]&&qr[cu.u][q.id];
       return`<div class="card">
-      <div class="ctitle"><i class="ti ti-school"></i>${q.title}</div>
+      <div class="ctitle"><i class="ti ti-school" aria-hidden="true"></i>${q.title}</div>
       ${res?`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
         <p style="font-size:13px;color:var(--accent)">Completed: ${res.score}/${res.total} correct</p>
-        <button class="bshare" onclick="alert('Your result has been shared with your manager.')"><i class="ti ti-share" style="font-size:12px"></i> Share result</button>
+        <button class="bshare" onclick="alert('Result shared with your manager.')"><i class="ti ti-share" style="font-size:12px"></i> Share result</button>
       </div>`:''}
       <div id="qz-${q.id}">
         ${q.questions.map((qq,qi)=>`<div class="qitem">
@@ -559,70 +714,119 @@ function bQuizzes(r){
     </div>`;}).join('');
   }
   return`<div class="card">
-  <div class="ctitle"><i class="ti ti-school"></i>Staff quizzes</div>
+  <div class="ctitle"><i class="ti ti-school" aria-hidden="true"></i>Staff quizzes</div>
   ${QUIZZES.map(q=>`<div style="border:0.5px solid var(--border);border-radius:var(--rs);padding:14px;margin-bottom:12px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:6px">
       <span style="font-size:13px;font-weight:500">${q.title}</span>
       <span style="font-size:11px;color:var(--text3)">${q.questions.length} questions · ${q.assigned.length} staff assigned</span>
     </div>
     ${q.questions.map((qq,qi)=>`<div class="qitem"><div class="qtext">Q${qi+1}. ${qq.q}</div>
-      <div class="qopts">${qq.opts.map((o,oi)=>`<div class="qopt${oi===qq.c?' cor':''}"><i class="ti ${oi===qq.c?'ti-circle-check':'ti-circle'}" style="font-size:13px"></i> ${o}</div>`).join('')}</div>
+      <div class="qopts">${qq.opts.map((o,oi)=>`<div class="qopt${oi===qq.c?' cor':''}"><i class="ti ${oi===qq.c?'ti-circle-check':'ti-circle'}" style="font-size:13px" aria-hidden="true"></i> ${o}</div>`).join('')}</div>
     </div>`).join('')}
   </div>`).join('')}
-  <button class="bout" onclick="alert('Full quiz builder available in the production version.')"><i class="ti ti-plus"></i> Create new quiz</button>
+  <button class="bout" onclick="alert('Full quiz builder in production version.')"><i class="ti ti-plus"></i> Create new quiz</button>
 </div>`;
 }
 
-function bUsers(r){
-  const isA=r==='admin';
+function bStaff(){
   return`<div class="card">
-  <div class="ctitle"><i class="ti ti-users"></i>${isA?'All users':'Staff accounts'}</div>
+  <div class="ctitle"><i class="ti ti-users" aria-hidden="true"></i>Staff accounts</div>
   <table class="tblx">
-    <thead><tr><th>Name</th><th>Username</th><th>Language</th><th>Status</th>${!isA?'<th></th>':''}</tr></thead>
+    <thead><tr><th>Name</th><th>Language</th><th>Queries</th><th>Status</th><th></th></tr></thead>
     <tbody>
-      ${stf.map((u,i)=>`<tr>
-        <td>${u.name}</td>
-        <td style="color:var(--text2)">${u.u}</td>
-        <td style="color:var(--text2)">${LANGS[u.lang]||u.lang}</td>
-        <td><span class="dot ${u.status}"></span>${u.status}</td>
-        ${!isA?`<td><button class="ta" onclick="togSt(${i})">${u.status==='active'?'Deactivate':'Activate'}</button></td>`:''}
+      ${stf.map((s,i)=>`<tr>
+        <td>${s.name}</td>
+        <td style="color:var(--text2)">${LANGS[s.lang]||s.lang}</td>
+        <td style="color:var(--text2)">${s.asked}</td>
+        <td><span class="dot ${s.status}"></span>${s.status}</td>
+        <td><button style="font-size:11.5px;color:var(--accent);background:none;border:none;cursor:pointer;font-weight:500" onclick="togSt(${i})">${s.status==='active'?'Deactivate':'Activate'}</button></td>
       </tr>`).join('')}
     </tbody>
   </table>
-  ${r==='manager'?`<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:0.5px solid var(--border);align-items:flex-end">
-    <div style="flex:1;min-width:110px"><label style="display:block;font-size:10px;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">Full name</label><input type="text" id="nN" placeholder="e.g. Sarah T." style="width:100%;padding:8px 10px;font-size:12.5px;background:var(--bg2);color:var(--text);border:0.5px solid var(--border2);border-radius:var(--rs);outline:none"/></div>
-    <div style="flex:1;min-width:100px"><label style="display:block;font-size:10px;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">Username</label><input type="text" id="nU" placeholder="username" style="width:100%;padding:8px 10px;font-size:12.5px;background:var(--bg2);color:var(--text);border:0.5px solid var(--border2);border-radius:var(--rs);outline:none"/></div>
-    <div style="flex:1;min-width:100px"><label style="display:block;font-size:10px;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">Password</label><input type="password" id="nP" placeholder="password" style="width:100%;padding:8px 10px;font-size:12.5px;background:var(--bg2);color:var(--text);border:0.5px solid var(--border2);border-radius:var(--rs);outline:none"/></div>
-    <div style="flex:1;min-width:100px"><label style="display:block;font-size:10px;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">Language</label><select id="nL" style="width:100%;padding:8px 10px;font-size:12.5px;background:var(--bg2);color:var(--text);border:0.5px solid var(--border2);border-radius:var(--rs);outline:none">${Object.entries(LANGS).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select></div>
-    <button class="bsm" onclick="addU()" style="white-space:nowrap"><i class="ti ti-user-plus" style="font-size:13px"></i> Add staff</button>
-  </div>`:''}
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:0.5px solid var(--border);align-items:flex-end">
+    <div style="flex:1;min-width:110px"><label style="display:block;font-size:10px;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em">Name</label><input type="text" id="nN" placeholder="Full name" style="width:100%;padding:8px 10px;font-size:12.5px;background:var(--bg2);color:var(--text);border:0.5px solid var(--border2);border-radius:var(--rs);outline:none"/></div>
+    <div style="flex:1;min-width:90px"><label style="display:block;font-size:10px;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em">Username</label><input type="text" id="nU" placeholder="username" style="width:100%;padding:8px 10px;font-size:12.5px;background:var(--bg2);color:var(--text);border:0.5px solid var(--border2);border-radius:var(--rs);outline:none"/></div>
+    <div style="flex:1;min-width:90px"><label style="display:block;font-size:10px;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em">Password</label><input type="password" id="nP" placeholder="password" style="width:100%;padding:8px 10px;font-size:12.5px;background:var(--bg2);color:var(--text);border:0.5px solid var(--border2);border-radius:var(--rs);outline:none"/></div>
+    <div style="flex:1;min-width:90px"><label style="display:block;font-size:10px;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em">Language</label><select id="nL" style="width:100%;padding:8px 10px;font-size:12.5px;background:var(--bg2);color:var(--text);border:0.5px solid var(--border2);border-radius:var(--rs);outline:none">${Object.entries(LANGS).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select></div>
+    <button class="bsm" onclick="addU()" style="white-space:nowrap"><i class="ti ti-user-plus" style="font-size:13px"></i> Add</button>
+  </div>
 </div>`;
 }
 
-function bMetrics(){
-  return`<div class="mgrid">
-  <div class="mc"><div class="ml">Active staff</div><div class="mv">3</div></div>
-  <div class="mc"><div class="ml">Quizzes live</div><div class="mv">1</div></div>
-  <div class="mc"><div class="ml">Documents</div><div class="mv">0</div></div>
-  <div class="mc"><div class="ml">AI queries today</div><div class="mv">—</div></div>
-</div>
-<div class="card" style="margin-top:0">
-  <div class="ctitle"><i class="ti ti-info-circle"></i>Platform overview</div>
-  <p style="font-size:13px;color:var(--text2);line-height:1.7">Full analytics including daily query counts, quiz completion rates, and most-asked questions are available in the production version.</p>
-</div>`;
+function markCovered(idx){
+  pendingTopic=idx;
+  const today=new Date().toISOString().split('T')[0];
+  document.getElementById('calDate').value=today;
+  document.getElementById('calTopicName').textContent=INSIGHTS[idx].topic;
+  document.getElementById('calOverlay').classList.remove('hidden');
+}
+
+function confirmCover(){
+  if(pendingTopic===null)return;
+  const date=document.getElementById('calDate').value;
+  INSIGHTS[pendingTopic].covered=true;
+  INSIGHTS[pendingTopic].covDate=date;
+  INSIGHTS[pendingTopic].status='effective';
+  closeCalModal();
+  rp2('insights');
+}
+
+function closeCalModal(){document.getElementById('calOverlay').classList.add('hidden');}
+
+function saveRating(u,btn){
+  const m=MANAGERS.find(x=>x.u===u);
+  const slider=btn.closest('.rating-wrap').querySelector('input[type=range]');
+  if(m&&slider){m.score=parseFloat(slider.value);alert('Score '+slider.value+'/10 saved for '+m.name+'. Visible to HR.');}
+}
+
+function openPhoto(i){
+  const p=PHOTOS[i];
+  const old=document.getElementById('phModal');if(old)old.remove();
+  const m=document.createElement('div');m.id='phModal';
+  m.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:999;padding:20px';
+  m.innerHTML=`<div style="background:var(--surface);border-radius:var(--r);padding:22px;max-width:340px;width:100%;border:0.5px solid var(--border);text-align:center">
+    <img src="${p.img}" alt="${p.name}" style="width:100%;border-radius:var(--rs);margin-bottom:12px;object-fit:cover;height:180px"/>
+    <div style="font-size:14px;font-weight:500;margin-bottom:5px">${p.name}</div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.6">${p.desc}</div>
+    <button class="mclose" style="margin-top:14px" onclick="document.getElementById('phModal').remove()">Close</button>
+  </div>`;
+  document.body.appendChild(m);
+}
+
+function submitQ(qid){
+  const quiz=QUIZZES.find(q=>q.id===qid);if(!quiz)return;
+  let score=0;
+  quiz.questions.forEach((qq,qi)=>{const sel=document.querySelector(`input[name="q${qid}-${qi}"]:checked`);if(sel&&parseInt(sel.value)===qq.c)score++;});
+  if(!qr[cu.u])qr[cu.u]={};
+  qr[cu.u][qid]={score,total:quiz.questions.length};
+  alert('Quiz submitted. You scored '+score+' out of '+quiz.questions.length+'.');
+  rp2('quizzes');
+}
+
+function togSt(i){stf[i].status=stf[i].status==='active'?'inactive':'active';rp2('staff');}
+
+function addU(){
+  const n=document.getElementById('nN').value.trim();
+  const u=document.getElementById('nU').value.trim();
+  const p=document.getElementById('nP').value.trim();
+  const l=document.getElementById('nL').value;
+  if(!n||!u||!p){alert('Please fill all fields.');return;}
+  stf.push({u,name:n,role:'staff',status:'active',lang:l,quiz:0,asked:0,lastActive:'New'});
+  USERS.push({u,p,role:'staff',name:n,lang:l});
+  rp2('staff');
 }
 
 function initGreet(){
   setTimeout(()=>{
     const m=document.getElementById('msgs');if(!m||chat.length)return;
-    const g={en:'Hello. Ask me anything about the menu, allergens, presentations, SOPs, or outlet information.',tr:'Merhaba. Menü, alerjenler, sunum veya restoran bilgileri hakkında her şeyi sorabilirsiniz.',es:'Hola. Pregúntame sobre el menú, alérgenos, presentaciones o información del restaurante.',ar:'مرحباً. اسألني عن القائمة أو مسببات الحساسية أو إجراءات الخدمة.',zh:'你好。请随时询问菜单、过敏原、摆盘或餐厅信息。',ru:'Привет. Спрашивайте о меню, аллергенах, подаче блюд или информации о ресторане.'};
-    addAImsg(g[cu.lang]||g.en);
+    const g={en:'Hello. Ask me anything about the menu, allergens, presentations, SOPs, or outlet information.',tr:'Merhaba. Menü, alerjenler, sunum veya restoran bilgileri hakkında her şeyi sorabilirsiniz.',es:'Hola. Pregúntame sobre el menú, alérgenos o información del restaurante.',ar:'مرحباً. اسألني عن القائمة أو مسببات الحساسية.',zh:'你好。请随时询问菜单或餐厅信息。',ru:'Привет. Спрашивайте о меню или ресторане.'};
+    addAI(g[cu.lang]||g.en);
   },80);
 }
 
 function useQP(btn){const i=document.getElementById('ci');if(i){i.value=btn.textContent;i.dispatchEvent(new Event('input'));}send();}
 
-function addAImsg(html){
+function addAI(html){
   const m=document.getElementById('msgs');if(!m)return;
   const w=document.createElement('div');w.className='msg';
   const av=document.createElement('div');av.className='av ai';av.textContent='AI';
@@ -662,77 +866,22 @@ async function send(){
   const text=inp?.value.trim();if(!text)return;
   loading=true;document.getElementById('sb').disabled=true;
   inp.value='';inp.style.height='auto';
-  addUmsg(text);chat.push({role:'user',content:text});
-  showT();
+  addUmsg(text);chat.push({role:'user',content:text});showT();
   const lang=LANGS[cu.lang]||'English';
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
-        system:SYS+'\n\nRespond in '+lang+'. Be concise and practical.',messages:chat})
+        system:SYS+'\n\nRespond in '+lang+'. Be concise.',messages:chat})
     });
     const data=await res.json();hideT();
     if(data.content&&data.content[0]){
       const reply=data.content[0].text;
-      chat.push({role:'assistant',content:reply});addAImsg(fmt(reply));
-    } else addAImsg('Something went wrong. Please try again.');
-  }catch(e){hideT();addAImsg('Connection error. Please try again.');}
+      chat.push({role:'assistant',content:reply});addAI(fmt(reply));
+    } else addAI('Something went wrong. Please try again.');
+  }catch(e){hideT();addAI('Connection error. Please try again.');}
   loading=false;document.getElementById('sb').disabled=false;
   document.getElementById('ci')?.focus();
-}
-
-function addFile(k,inp){
-  Array.from(inp.files).forEach(f=>{if(!files[k])files[k]=[];files[k].push(f.name);});
-  const el=document.getElementById('fl-'+k);
-  if(el)el.innerHTML=files[k].map((f,i)=>`<div style="display:flex;align-items:center;gap:8px;padding:7px 11px;background:var(--bg2);border-radius:7px;border:0.5px solid var(--border);font-size:12.5px;margin-bottom:6px"><i class="ti ti-file" style="color:var(--accent);font-size:15px"></i><span style="flex:1;color:var(--text2)">${f}</span></div>`).join('');
-}
-
-function addPhoto(inp){
-  Array.from(inp.files).forEach(f=>{
-    PHOTOS.push({name:f.name.replace(/\.[^.]+$/,''),desc:'Uploaded presentation photo.',img:URL.createObjectURL(f)});
-  });
-  rp2('photos');
-}
-
-function openPhoto(i){
-  const p=PHOTOS[i];
-  const pls=document.getElementById('pls');
-  const old=document.getElementById('phMod');if(old)old.remove();
-  const m=document.createElement('div');m.id='phMod';m.style.cssText='position:absolute;top:0;left:0;right:0;bottom:0;z-index:99';
-  m.innerHTML=`<div class="modal-bg" onclick="if(event.target===this.parentElement||event.target.classList.contains('modal-bg'))closeM('phMod')">
-    <div class="modal">
-      <img src="${p.img}" alt="${p.name}"/>
-      <div class="modal-title">${p.name}</div>
-      <div class="modal-desc">${p.desc}</div>
-      <button class="mclose" onclick="closeM('phMod')">Close</button>
-    </div>
-  </div>`;
-  pls.style.position='relative';pls.appendChild(m);
-}
-
-function closeM(id){const e=document.getElementById(id);if(e)e.remove();}
-
-function submitQ(qid){
-  const quiz=QUIZZES.find(q=>q.id===qid);if(!quiz)return;
-  let score=0;
-  quiz.questions.forEach((qq,qi)=>{const sel=document.querySelector(`input[name="q${qid}-${qi}"]:checked`);if(sel&&parseInt(sel.value)===qq.c)score++;});
-  if(!qr[cu.u])qr[cu.u]={};
-  qr[cu.u][qid]={score,total:quiz.questions.length};
-  alert('Quiz submitted. You scored '+score+' out of '+quiz.questions.length+'.');
-  rp2('quizzes');
-}
-
-function togSt(i){stf[i].status=stf[i].status==='active'?'inactive':'active';rp2('staff');}
-
-function addU(){
-  const n=document.getElementById('nN').value.trim();
-  const u=document.getElementById('nU').value.trim();
-  const p=document.getElementById('nP').value.trim();
-  const l=document.getElementById('nL').value;
-  if(!n||!u||!p){alert('Please fill all fields.');return;}
-  stf.push({u,name:n,role:'staff',status:'active',lang:l,quiz:0,asked:0,lastActive:'New'});
-  USERS.push({u,p,role:'staff',name:n,lang:l});
-  rp2('staff');
 }
 </script>
 </body>
