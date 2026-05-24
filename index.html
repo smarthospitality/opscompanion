@@ -243,6 +243,11 @@ button,input,select,textarea{font-family:inherit}
 
 <div id="auth">
   <div class="acard">
+    <div style="text-align:center;margin-bottom:28px">
+      <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Interactive demo</div>
+      <div style="font-size:22px;font-weight:500;color:var(--text);margin-bottom:6px">Explore the platform</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6">Try each role to see the full platform experience</div>
+    </div>
     <div class="abrand">
       <div class="aicon"><span>SH</span></div>
       <div><div class="aname">SmartHospitality.ai</div><div class="asub">Ops Companion Platform</div></div>
@@ -251,10 +256,34 @@ button,input,select,textarea{font-family:inherit}
     <div class="fl"><label>Password</label><input type="password" id="lp" value="dir123" placeholder="Password" onkeydown="if(event.key==='Enter')login()"/></div>
     <button class="bmain" onclick="login()">Sign in</button>
     <div id="lerr" class="err hidden">Incorrect username or password.</div>
-    <div class="dhint">
-      <strong>director / dir123</strong> &nbsp;·&nbsp; <strong>hr / hr123</strong><br>
-      <strong>manager / mgr123</strong> &nbsp;·&nbsp; <strong>staff / staff123</strong><br>
-      <strong>admin / admin123</strong>
+        <div class="dhint" style="text-align:left;margin-top:24px">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="padding:10px 12px;background:#F4F2EE;border-radius:8px;border:0.5px solid #E8E8E6">
+          <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Director of F&B</div>
+          <div style="font-size:12px;color:#555;margin-bottom:5px">Multi-outlet overview & manager performance</div>
+          <div style="font-size:12px;font-weight:500;color:#1A1A1A;font-family:monospace">director / dir123</div>
+        </div>
+        <div style="padding:10px 12px;background:#F4F2EE;border-radius:8px;border:0.5px solid #E8E8E6">
+          <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">HR</div>
+          <div style="font-size:12px;color:#555;margin-bottom:5px">Staff appraisals & performance reports</div>
+          <div style="font-size:12px;font-weight:500;color:#1A1A1A;font-family:monospace">hr / hr123</div>
+        </div>
+        <div style="padding:10px 12px;background:#F4F2EE;border-radius:8px;border:0.5px solid #E8E8E6">
+          <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Manager</div>
+          <div style="font-size:12px;color:#555;margin-bottom:5px">AI assistant, insights, training & staff management</div>
+          <div style="font-size:12px;font-weight:500;color:#1A1A1A;font-family:monospace">manager / mgr123</div>
+        </div>
+        <div style="padding:10px 12px;background:#F4F2EE;border-radius:8px;border:0.5px solid #E8E8E6">
+          <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Line Staff</div>
+          <div style="font-size:12px;color:#555;margin-bottom:5px">AI chat, training modules & quizzes</div>
+          <div style="font-size:12px;font-weight:500;color:#1A1A1A;font-family:monospace">staff / staff123</div>
+        </div>
+        <div style="padding:10px 12px;background:#F4F2EE;border-radius:8px;border:0.5px solid #E8E8E6">
+          <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Admin</div>
+          <div style="font-size:12px;color:#555;margin-bottom:5px">Platform & user management</div>
+          <div style="font-size:12px;font-weight:500;color:#1A1A1A;font-family:monospace">admin / admin123</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
